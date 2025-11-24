@@ -142,6 +142,29 @@
       font-size: 12px;
       color: #333333;
     }
+    .trip-row-with-logo {
+      align-items: center;
+      column-gap: 10px;
+    }
+    .trip-col {
+      flex: 1;
+    }
+    .trip-col-right {
+      text-align: right;
+    }
+    .trip-logo-col {
+      flex: 0 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 6px;
+    }
+    .trip-logo-img {
+      max-height: 28px;
+      width: auto;
+      display: block;
+    }
+
     .trip-col-title {
       font-size: 11px;
       color: #999999;
@@ -392,13 +415,16 @@
     </div>
 
     <div class="card">
-      <div class="trip-row">
-        <div>
+      <div class="trip-row trip-row-with-logo">
+        <div class="trip-col">
           <div class="trip-col-title">去程</div>
           <div class="trip-col-main" id="outbound-main">12月24日  CX580</div>
           <div class="trip-col-sub" id="outbound-sub">香港 至 札幌  09:10 至 14:50</div>
         </div>
-        <div>
+        <div class="trip-logo-col">
+          <img src="cx_logo.png" alt="Airline logo" class="trip-logo-img" />
+        </div>
+        <div class="trip-col trip-col-right">
           <div class="trip-col-title">回程</div>
           <div class="trip-col-main" id="inbound-main">12月29日  CX587</div>
           <div class="trip-col-sub" id="inbound-sub">札幌 至 香港 19:00 至 23:55</div>
