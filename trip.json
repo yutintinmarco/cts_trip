@@ -1,0 +1,160 @@
+{
+  "meta": {
+    "titleSmall": "My Trip",
+    "titleMain": "北海道 札幌 六日行程",
+    "dateRange": "12月24日 至 12月29日",
+    "outbound": {
+      "date": "12月24日",
+      "flight": "CX580",
+      "route": "香港 至 札幌",
+      "time": "09:10 至 14:50"
+    },
+    "inbound": {
+      "date": "12月29日",
+      "flight": "CX587",
+      "route": "札幌 至 香港",
+      "time": "19:00 至 23:55"
+    },
+    "footerNote": "行程  天氣  日出日落  照片及地圖由 AI 協助整合  點擊酒店及景點可查看詳細資訊"
+  },
+  "days": [
+    {
+      "label": "Day 1",
+      "date": "12月24日",
+      "title": "抵達札幌",
+      "subtitle": "入住 HOTEL MYSTAYS Sapporo Station",
+      "items": [
+        {
+          "time": "09:10",
+          "icon": "✈️",
+          "title": "香港出發",
+          "note": "CX580 前往札幌"
+        },
+        {
+          "time": "14:50",
+          "icon": "🛬",
+          "title": "抵達新千歲機場",
+          "note": "辦理入境  取行李"
+        },
+        {
+          "time": "16:00",
+          "icon": "🚆",
+          "title": "前往札幌市區",
+          "note": "搭乘 JR 或巴士前往酒店"
+        },
+        {
+          "time": "17:00",
+          "icon": "🏨",
+          "title": "入住 HOTEL MYSTAYS Sapporo Station",
+          "note": "點擊查看酒店相片  詳細資訊  及打開地圖",
+          "popup": true,
+          "detail": "鄰近札幌站  方便拖行李及作為札幌市區行程據點  建議先熟悉附近便利店及餐廳位置  之後幾晚活動都會由此出發。",
+          "maps": "https://maps.app.goo.gl/hdXS1RAAQHqWqWtS6",
+          "type": "hotel",
+          "gallery": "mystays"
+        },
+        {
+          "time": "18:00–21:00",
+          "icon": "🎄",
+          "title": "札幌慕尼黑聖誕市場",
+          "note": "聖誕燈飾  小木屋攤檔  熱紅酒及小食",
+          "popup": true,
+          "detail": "位於大通公園附近  聖誕期間限定市集  有小木屋攤檔  熱紅酒  香腸  甜品及手作紀念品  夜晚有燈飾同氣氛  建議提早少少到達  可以影夜景同慢慢行幾圈  注意保暖及人流  留意返程交通時間。",
+          "maps": ""
+        }
+      ]
+    },
+    {
+      "label": "Day 2",
+      "date": "12月25日",
+      "title": "行程待補充",
+      "subtitle": "",
+      "items": []
+    },
+    {
+      "label": "Day 3",
+      "date": "12月26日",
+      "title": "小樽散策行程",
+      "subtitle": "札幌 往返 小樽  一日遊",
+      "items": [
+        {
+          "time": "10:30",
+          "icon": "🚆",
+          "title": "札幌站 → 小樽",
+          "note": "JR 函館本線  車程約三十五分鐘",
+          "popup": true,
+          "detail": "由札幌站乘搭 JR 函館本線前往小樽  車程約三十五分鐘  建議提前五至十分鐘到月台等車  避免人多或趕車。",
+          "maps": "https://maps.app.goo.gl/2VZ9zP8QuMqPwQss9"
+        },
+        {
+          "time": "11:30",
+          "icon": "🍣",
+          "title": "宝すし 午餐",
+          "note": "高質壽司店  建議預約",
+          "popup": true,
+          "detail": "位於小樽市中心  屬於高質壽司店  建議預約後才前往  如預約延遲  可順路先行散策商店街再回來用餐。",
+          "maps": "https://maps.app.goo.gl/4WcNNg4F9d8YxN8p9"
+        },
+        {
+          "time": "午後",
+          "icon": "🏙️",
+          "title": "小樽市區散策",
+          "note": "堺町通  運河  音樂盒堂  LeTAO  六花亭",
+          "popup": true,
+          "detail": "小樽市區散策重點：\n小樽堺町通商店街\n小樽運河\n小樽音樂盒堂本館\nLeTAO 本店\n六花亭 小樽店\n以上景點步行可達  建議按現場人流及天氣情況彈性調整次序  如天氣良好可優先安排小樽運河及戶外景點。",
+          "maps": "https://maps.app.goo.gl/8mTqQYy5o4X5y1t88"
+        },
+        {
+          "time": "18:00",
+          "icon": "🚆",
+          "title": "小樽站 → 札幌",
+          "note": "建議搭乘約 18:00 班次  約 18:35 抵達",
+          "popup": true,
+          "detail": "由小樽站乘搭 JR 函館本線返回札幌  車程約三十五分鐘  可參考示例班次：18:00 出發  約 18:35 抵達  晚市可回到札幌市內享用晚餐。",
+          "maps": "https://maps.app.goo.gl/L5vqf3k4tsADQ2J27"
+        },
+        {
+          "time": "夜晚",
+          "icon": "🍽️",
+          "title": "札幌晚市自由安排",
+          "note": "可再揀蟹料理或市內其他餐廳  視乎當日體力及心情彈性決定。",
+          "popup": false
+        }
+      ]
+    },
+    {
+      "label": "Day 4",
+      "date": "12月27日",
+      "title": "行程待補充",
+      "subtitle": "",
+      "items": []
+    },
+    {
+      "label": "Day 5",
+      "date": "12月28日",
+      "title": "行程待補充",
+      "subtitle": "預計轉往 JR Inn Sapporo",
+      "items": []
+    },
+    {
+      "label": "Day 6",
+      "date": "12月29日",
+      "title": "回程",
+      "subtitle": "",
+      "items": [
+        {
+          "time": "19:00",
+          "icon": "✈️",
+          "title": "CX587 札幌出發",
+          "note": "準備登機  建議提早到達機場"
+        },
+        {
+          "time": "23:55",
+          "icon": "🛬",
+          "title": "抵達香港",
+          "note": "結束六日行程"
+        }
+      ]
+    }
+  ]
+}
