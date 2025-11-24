@@ -43,6 +43,7 @@
       font-size: 12px;
       color: #555555;
       line-height: 1.5;
+      margin-top: 6px;
     }
     .header-right {
       display: flex;
@@ -82,19 +83,30 @@
     .refresh-btn:active {
       background: #f0f0f0;
     }
-    .status-card {
+    /* 小正方形 countdown 放在 title 同 refresh 之間 */
+    .status-square-wrapper {
+      display: flex;
+      justify-content: center;
+      margin-top: 4px;
+    }
+    .status-square {
+      min-width: 120px;
+      min-height: 60px;
+      padding: 6px 10px;
+      border-radius: 14px;
       background: #ffffff;
-      border-radius: 16px;
-      padding: 10px 12px;
-      box-shadow: 0 6px 14px rgba(15,23,42,0.08);
       border: 1px solid #e5e5ea;
-      margin-bottom: 10px;
+      box-shadow: 0 6px 14px rgba(15,23,42,0.08);
       text-align: center;
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
     }
     .status-main {
-      font-size: 16px;
+      font-size: 15px;
       font-weight: 600;
-      margin-bottom: 4px;
+      margin-bottom: 2px;
       color: #222222;
     }
     .status-sub {
@@ -361,16 +373,19 @@
           <button class="refresh-btn" id="refresh-btn">⟳</button>
         </div>
       </div>
+
+      <div class="status-square-wrapper">
+        <div class="status-square" id="status-square">
+          <div class="status-main" id="status-main">距離出發尚餘 30 日</div>
+          <div class="status-sub" id="status-sub">以日本時間計算</div>
+        </div>
+      </div>
+
       <div class="header-sub" id="header-sub">
         旅程日期  12月24日 至 12月29日<br/>
         去程 CX580  香港 至 札幌  09:10 至 14:50<br/>
         回程 CX587  札幌 至 香港 19:00 至 23:55
       </div>
-    </div>
-
-    <div class="status-card" id="trip-status-card" style="display:none;">
-      <div class="status-main" id="trip-status-main">距離出發尚餘 30 日</div>
-      <div class="status-sub" id="trip-status-sub">以日本時間計算</div>
     </div>
 
     <div id="pull-indicator" class="pull-indicator">下拉更新行程</div>
@@ -660,7 +675,7 @@
       }
     });
 
-    // Compute "today" in Japan time
+    // Japan date helper
     function getJapanDateString() {
       const now = new Date();
       const offsetMinutes = 9 * 60 + now.getTimezoneOffset();
@@ -671,12 +686,12 @@
       return y + "-" + m + "-" + d;
     }
 
-    function updateTodayChipAndTab(data) {
+    function updateTodayChipAndStatus(data) {
       const chip = document.getElementById("today-chip");
-      const statusCard = document.getElementById("trip-status-card");
-      const statusMain = document.getElementById("trip-status-main");
-      const statusSub = document.getElementById("trip-status-sub");
-      if (!data.days || !data.days.length || !chip) return;
+      const statusSquare = document.getElementById("status-square");
+      const statusMain = document.getElementById("status-main");
+      const statusSub = document.getElementById("status-sub");
+      if (!data.days || !data.days.length || !chip || !statusSquare) return;
 
       const todayIso = getJapanDateString();
       const startIso = data.meta && data.meta.tripStartIso;
@@ -693,13 +708,11 @@
         return Math.round((db - da) / 86400000);
       }
 
-      // helper to hide status card
-      function hideStatus() {
-        if (statusCard) statusCard.style.display = "none";
+      function hideSquare() {
+        statusSquare.style.display = "none";
       }
-      function showStatus(main, sub) {
-        if (!statusCard) return;
-        statusCard.style.display = "block";
+      function showSquare(main, sub) {
+        statusSquare.style.display = "flex";
         if (statusMain) statusMain.textContent = main;
         if (statusSub) statusSub.textContent = sub || "";
       }
@@ -708,7 +721,7 @@
         const day = data.days[todayIndex];
         chip.textContent = "今日  Day " + (todayIndex + 1) + "（" + day.date + "）";
         chip.classList.add("active");
-        hideStatus();
+        hideSquare();
 
         const tabs = document.querySelectorAll(".day-tab");
         const dayContents = document.querySelectorAll(".day-content");
@@ -725,19 +738,18 @@
         const daysToGo = diffInDays(todayIso, startIso);
         chip.textContent = "尚未出發";
         chip.classList.remove("active");
-        showStatus("距離出發尚餘 " + daysToGo + " 日", "以日本時間計算");
+        showSquare("距離出發尚餘 " + daysToGo + " 日", "以日本時間計算");
       } else if (endIso && todayIso > endIso) {
         chip.textContent = "行程已完成";
         chip.classList.remove("active");
-        showStatus("行程已完成", "多謝自己好好玩返轉");
+        showSquare("行程已完成", "多謝自己好好玩返轉");
       } else {
         chip.textContent = "行程日期以外";
         chip.classList.remove("active");
-        showStatus("不在行程日期內", "請確認行程日期設定");
+        showSquare("不在行程日期內", "請確認行程日期設定");
       }
     }
 
-    // Load trip.json and render days
     function renderFromTripJson(data) {
       const headerSmall = document.getElementById("header-title-small");
       const headerMain = document.getElementById("header-title-main");
@@ -871,7 +883,7 @@
       });
 
       setupTimelineClickHandlers();
-      updateTodayChipAndTab(data);
+      updateTodayChipAndStatus(data);
     }
 
     fetch("trip.json")
@@ -880,7 +892,6 @@
         renderFromTripJson(data);
       })
       .catch(() => {
-        console.error("無法載入 trip.json");
         const chip = document.getElementById("today-chip");
         if (chip) chip.textContent = "無法載入行程資料";
       });
