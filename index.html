@@ -39,11 +39,18 @@
       font-weight: 600;
       margin-bottom: 2px;
     }
-    .header-sub {
+    .header-sub-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 8px;
+      margin-top: 6px;
+    }
+    .header-sub-text {
       font-size: 12px;
       color: #555555;
       line-height: 1.5;
-      margin-top: 6px;
+      flex: 1;
     }
     .header-right {
       display: flex;
@@ -83,12 +90,7 @@
     .refresh-btn:active {
       background: #f0f0f0;
     }
-    /* 小正方形 countdown 放在 title 同 refresh 之間 */
-    .status-square-wrapper {
-      display: flex;
-      justify-content: center;
-      margin-top: 4px;
-    }
+    /* 小正方形 countdown：放在三行日期文字右側，平排 */
     .status-square {
       min-width: 120px;
       min-height: 60px;
@@ -117,9 +119,9 @@
       font-size: 11px;
       color: #777777;
       text-align: center;
-      margin-bottom: 4px;
+      margin-bottom: 8px;
       opacity: 0;
-      transform: translateY(-12px);
+      transform: translateY(-6px);
       transition: opacity 0.15s ease, transform 0.15s ease;
     }
     .pull-indicator.show {
@@ -362,6 +364,8 @@
 </head>
 <body>
   <div class="container">
+    <div id="pull-indicator" class="pull-indicator">下拉更新行程</div>
+
     <div class="header">
       <div class="header-top">
         <div>
@@ -374,21 +378,18 @@
         </div>
       </div>
 
-      <div class="status-square-wrapper">
+      <div class="header-sub-row">
+        <div class="header-sub-text" id="header-sub">
+          旅程日期  12月24日 至 12月29日<br/>
+          去程 CX580  香港 至 札幌  09:10 至 14:50<br/>
+          回程 CX587  札幌 至 香港 19:00 至 23:55
+        </div>
         <div class="status-square" id="status-square">
           <div class="status-main" id="status-main">距離出發尚餘 30 日</div>
           <div class="status-sub" id="status-sub">以日本時間計算</div>
         </div>
       </div>
-
-      <div class="header-sub" id="header-sub">
-        旅程日期  12月24日 至 12月29日<br/>
-        去程 CX580  香港 至 札幌  09:10 至 14:50<br/>
-        回程 CX587  札幌 至 香港 19:00 至 23:55
-      </div>
     </div>
-
-    <div id="pull-indicator" class="pull-indicator">下拉更新行程</div>
 
     <div class="card">
       <div class="trip-row">
