@@ -44,6 +44,29 @@
       color: #555555;
       line-height: 1.5;
     }
+    .header-right {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 6px;
+    }
+    .today-chip {
+      font-size: 11px;
+      padding: 3px 10px;
+      border-radius: 999px;
+      background: #ffffff;
+      border: 1px solid #e0e0e0;
+      color: #555555;
+      max-width: 140px;
+      text-align: right;
+      line-height: 1.4;
+      box-shadow: 0 2px 6px rgba(15,23,42,0.06);
+    }
+    .today-chip.active {
+      border-color: #f5c542;
+      background: #fff7db;
+      color: #5c4300;
+    }
     .refresh-btn {
       width: 30px;
       height: 30px;
@@ -314,7 +337,10 @@
           <div class="header-title-small" id="header-title-small">My Trip</div>
           <div class="header-title-main" id="header-title-main">北海道 札幌 六日行程</div>
         </div>
-        <button class="refresh-btn" id="refresh-btn">⟳</button>
+        <div class="header-right">
+          <div id="today-chip" class="today-chip">載入行程中…</div>
+          <button class="refresh-btn" id="refresh-btn">⟳</button>
+        </div>
       </div>
       <div class="header-sub" id="header-sub">
         旅程日期  12月24日 至 12月29日<br/>
@@ -610,9 +636,67 @@
       }
     });
 
+    // Compute "today" in Japan time
+    function getJapanDateString() {
+      const now = new Date();
+      const offsetMinutes = 9 * 60 + now.getTimezoneOffset();
+      const jst = new Date(now.getTime() + offsetMinutes * 60000);
+      const y = jst.getFullYear();
+      const m = String(jst.getMonth() + 1).padStart(2, "0");
+      const d = String(jst.getDate()).padStart(2, "0");
+      return y + "-" + m + "-" + d;
+    }
+
+    function updateTodayChipAndTab(data) {
+      const chip = document.getElementById("today-chip");
+      if (!data.days || !data.days.length || !chip) return;
+
+      const todayIso = getJapanDateString();
+      const startIso = data.meta && data.meta.tripStartIso;
+      const endIso = data.meta && data.meta.tripEndIso;
+
+      let todayIndex = -1;
+      data.days.forEach((day, idx) => {
+        if (day.isoDate === todayIso) todayIndex = idx;
+      });
+
+      function diffInDays(a, b) {
+        const da = new Date(a);
+        const db = new Date(b);
+        return Math.round((db - da) / 86400000);
+      }
+
+      if (todayIndex >= 0) {
+        const day = data.days[todayIndex];
+        chip.textContent = "今日  Day " + (todayIndex + 1) + "（" + day.date + "）";
+        chip.classList.add("active");
+
+        const tabs = document.querySelectorAll(".day-tab");
+        const dayContents = document.querySelectorAll(".day-content");
+        tabs.forEach(t => t.classList.remove("active"));
+        dayContents.forEach(d => d.classList.remove("active"));
+
+        const activeTab = document.querySelector('.day-tab[data-day-index="' + todayIndex + '"]');
+        const activeContent = document.querySelector('.day-content[data-day-index="' + todayIndex + '"]');
+        if (activeTab) activeTab.classList.add("active");
+        if (activeContent) activeContent.classList.add("active");
+
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      } else if (startIso && todayIso < startIso) {
+        const daysToGo = diffInDays(todayIso, startIso);
+        chip.textContent = "距離出發尚餘 " + daysToGo + " 日";
+        chip.classList.remove("active");
+      } else if (endIso && todayIso > endIso) {
+        chip.textContent = "行程已完成";
+        chip.classList.remove("active");
+      } else {
+        chip.textContent = "行程日期以外";
+        chip.classList.remove("active");
+      }
+    }
+
     // Load trip.json and render days
     function renderFromTripJson(data) {
-      // Header
       const headerSmall = document.getElementById("header-title-small");
       const headerMain = document.getElementById("header-title-main");
       const headerSub = document.getElementById("header-sub");
@@ -729,7 +813,6 @@
         contentsEl.appendChild(content);
       });
 
-      // Tabs logic
       const tabs = document.querySelectorAll(".day-tab");
       const dayContents = document.querySelectorAll(".day-content");
 
@@ -745,17 +828,19 @@
         });
       });
 
-      // Setup popup after DOM is ready
       setupTimelineClickHandlers();
+      updateTodayChipAndTab(data);
     }
 
-    fetch("trip.json")
+    fetch("trip_today.json")
       .then(r => r.json())
       .then(data => {
         renderFromTripJson(data);
       })
       .catch(() => {
-        console.error("無法載入 trip.json");
+        console.error("無法載入 trip_today.json");
+        const chip = document.getElementById("today-chip");
+        if (chip) chip.textContent = "無法載入行程資料";
       });
   </script>
 </body>
