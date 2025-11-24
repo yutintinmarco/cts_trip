@@ -2,6 +2,11 @@
 <html lang="zh-Hant">
 <head>
 <meta charset="utf-8" />
+
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+<meta http-equiv="Pragma" content="no-cache" />
+<meta http-equiv="Expires" content="0" />
+
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>北海道行程</title>
 <style>
@@ -276,15 +281,58 @@ body {
   background: #f5f5f7;
   font-size: 12px;
 }
+
+.header-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+}
+.refresh-btn {
+  width: 30px;
+  height: 30px;
+  border-radius: 999px;
+  border: 1px solid #dadada;
+  background: #ffffff;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+}
+.refresh-btn:active {
+  background: #f0f0f0;
+}
+.pull-indicator {
+  font-size: 11px;
+  color: #777777;
+  text-align: center;
+  margin-bottom: 4px;
+  opacity: 0;
+  transform: translateY(-12px);
+  transition: opacity 0.15s ease, transform 0.15s ease;
+}
+.pull-indicator.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
 </style>
 </head>
 <body>
 <div class="container">
 
+<div id="pull-indicator" class="pull-indicator">下拉更新行程</div>
+
 <!-- Header -->
 <div class="header">
-  <div class="header-title-small">My Trip</div>
-  <div class="header-title-main">北海道 札幌 六日行程</div>
+  <div class="header-top">
+    <div>
+      <div class="header-title-small">My Trip</div>
+      <div class="header-title-main">北海道 札幌 六日行程</div>
+    </div>
+    <button class="refresh-btn" id="refresh-btn">⟳</button>
+  </div>
   <div class="header-sub">
     旅程日期  12月24日 至 12月29日<br/>
     去程 CX580  香港 至 札幌  09:10 至 14:50<br/>
@@ -399,108 +447,7 @@ body {
 
 <!-- Day 3 -->
 <div class="day-content" data-day="3">
-  <div class="section-title">12月26日 小樽散策行程</div>
-  <div class="section-sub">札幌 ↔ 小樽  一日遊</div>
-
-  <!-- Departure -->
-  <div class="timeline-item clickable"
-       data-type="otaru-train-go"
-       data-title="前往小樽（JR 函館本線）"
-       data-time="10:30 出發"
-       data-detail="由札幌站乘搭 JR 函館本線前往小樽  車程約三十五分鐘  建議提前五至十分鐘到月台等車。"
-       data-maps="https://maps.app.goo.gl/2VZ9zP8QuMqPwQss9">
-    <div class="time">10:30</div>
-    <div class="icon">🚆</div>
-    <div class="content">
-      <div class="content-title">札幌站 → 小樽</div>
-      <div class="content-note">JR 函館本線  車程三十五分鐘</div>
-    </div>
-  </div>
-
-  <!-- Lunch Bao Sushi -->
-  <div class="timeline-item clickable"
-       data-type="bao-sushi"
-       data-title="宝すし（午餐）"
-       data-time="11:30 午餐（予約待確認）"
-       data-detail="位於小樽市中心  屬於高質壽司店  建議預約後才前往  如預約延遲  可順路先逛堺町商店街再返回用餐。"
-       data-maps="https://maps.app.goo.gl/4WcNNg4F9d8YxN8p9">
-    <div class="time">11:30</div>
-    <div class="icon">🍣</div>
-    <div class="content">
-      <div class="content-title">宝すし 午餐</div>
-      <div class="content-note">高質壽司店  建議預約</div>
-    </div>
-  </div>
-
-  <!-- Otaru Spots -->
-  <div class="timeline-item clickable"
-       data-type="otaru-walk"
-       data-title="小樽市區散策"
-       data-time="午後 自由散策"
-       data-detail="散策重點包括：
-小樽堺町通商店街
-小樽運河
-小樽音樂盒堂本館
-LeTAO 本店
-六花亭 小樽店
-以上景點步行可達  建議按現場人流彈性調整行程。"
-       data-maps="https://maps.app.goo.gl/8mTqQYy5o4X5y1t88">
-    <div class="time">午後</div>
-    <div class="icon">🏙️</div>
-    <div class="content">
-      <div class="content-title">小樽散策</div>
-      <div class="content-note">堺町通  運河  音樂盒堂  LeTAO</div>
-    </div>
-  </div>
-
-  <!-- Return -->
-  <div class="timeline-item clickable"
-       data-type="otaru-train-back"
-       data-title="返回札幌（JR 函館本線）"
-       data-time="18:00 返程"
-       data-detail="由小樽站乘搭 JR 函館本線返回札幌  車程約三十五分鐘  傍晚可回札幌享用晚餐（已保留 19:00–21:00 蟹料理時段）。"
-       data-maps="https://maps.app.goo.gl/L5vqf3k4tsADQ2J27">
-    <div class="time">18:00</div>
-    <div class="icon">🚆</div>
-    <div class="content">
-      <div class="content-title">小樽站 → 札幌</div>
-      <div class="content-note">JR 函館本線返札幌  三十五分鐘</div>
-    </div>
-  </div>
-
-  <!-- Dinner (already added) -->
-  <div class="timeline-item clickable"
-       data-type="dinner-crab"
-       data-title="晚餐：蟹料理（餐廳待定）"
-       data-time="19:00 至 21:00"
-       data-detail="預留兩小時享用蟹料理  餐廳稍後再選  可加入套餐詳情  地圖及餐廳資訊將於確定後自動更新。"
-       data-maps="">
-    <div class="time">19:00–21:00</div>
-    <div class="icon">🦀</div>
-    <div class="content">
-      <div class="content-title">蟹料理（待選餐廳）</div>
-      <div class="content-note">已預留晚市時段  之後再揀餐廳</div>
-    </div>
-  </div>
-</div>
-
-  <!-- Otaru itinerary placeholder above (you can insert later) -->
-
-  <!-- Crab dinner timeslot -->
-  <div class="timeline-item clickable"
-       data-type="dinner-crab"
-       data-title="晚餐：蟹料理（餐廳待定）"
-       data-time="19:00 至 21:00"
-       data-detail="預留兩小時享用蟹料理  餐廳稍後再選  可加入套餐詳情  地圖及餐廳資訊將於確定後自動更新。"
-       data-maps="">
-    <div class="time">19:00–21:00</div>
-    <div class="icon">🦀</div>
-    <div class="content">
-      <div class="content-title">蟹料理（待選餐廳）</div>
-      <div class="content-note">已預留晚市時段  之後再揀餐廳</div>
-    </div>
-  </div>
-</div>
+  <div class="section-title">12月26日 行程</div>
 </div>
 
 <!-- Day 4 -->
@@ -560,6 +507,53 @@ LeTAO 本店
 </div>
 
 <script>
+
+// Refresh button
+const refreshBtn = document.getElementById("refresh-btn");
+if (refreshBtn) {
+  refreshBtn.addEventListener("click", () => {
+    window.location.reload(true);
+  });
+}
+
+// Pull to refresh
+const pullIndicator = document.getElementById("pull-indicator");
+let pullStartY = 0;
+let pullDistance = 0;
+let isPulling = false;
+const PULL_THRESHOLD = 70;
+
+window.addEventListener("touchstart", (e) => {
+  if (window.scrollY === 0) {
+    isPulling = true;
+    pullStartY = e.touches[0].clientY;
+    pullDistance = 0;
+  } else {
+    isPulling = false;
+  }
+}, { passive: true });
+
+window.addEventListener("touchmove", (e) => {
+  if (!isPulling) return;
+  const currentY = e.touches[0].clientY;
+  pullDistance = currentY - pullStartY;
+  if (pullDistance > 0 && pullIndicator) {
+    pullIndicator.classList.add("show");
+    pullIndicator.textContent = pullDistance > PULL_THRESHOLD ? "釋放以更新行程" : "下拉更新行程";
+  }
+}, { passive: true });
+
+window.addEventListener("touchend", () => {
+  if (!isPulling) return;
+  if (pullDistance > PULL_THRESHOLD) {
+    window.location.reload(true);
+  } else if (pullIndicator) {
+    pullIndicator.classList.remove("show");
+  }
+  isPulling = false;
+  pullDistance = 0;
+}, { passive: true });
+
 // Tabs
 const tabs = document.querySelectorAll(".day-tab");
 const days = document.querySelectorAll(".day-content");
@@ -680,3 +674,87 @@ const detailDots = document.getElementById("detail-dots");
 
 // gallery images for the hotel
 const HOTEL_GALLERY = ['mystays_1.jpg','mystays_2.jpg','mystays_3.jpg'];
+
+let currentMapsUrl = "";
+let currentGallery = [];
+let currentGalleryIndex = 0;
+
+function renderDots() {
+  detailDots.innerHTML = "";
+  currentGallery.forEach((_, idx) => {
+    const dot = document.createElement("div");
+    dot.className = "modal-dot" + (idx === currentGalleryIndex ? " active" : "");
+    dot.addEventListener("click", () => {
+      currentGalleryIndex = idx;
+      updateGalleryImage();
+    });
+    detailDots.appendChild(dot);
+  });
+}
+
+function updateGalleryImage() {
+  if (!currentGallery.length) return;
+  detailImg.src = currentGallery[currentGalleryIndex];
+  renderDots();
+}
+
+document.querySelectorAll(".timeline-item.clickable").forEach(item => {
+  item.addEventListener("click", () => {
+    const title = item.getAttribute("data-title") || "";
+    const time = item.getAttribute("data-time") || "";
+    const detail = item.getAttribute("data-detail") || "";
+    const maps = item.getAttribute("data-maps") || "";
+    const type = item.getAttribute("data-type") || "";
+
+    detailTitle.textContent = title;
+    detailTime.textContent = time;
+    detailBody.textContent = detail;
+    currentMapsUrl = maps;
+    detailBackdrop.classList.add("active");
+
+    if (type === "hotel-mystays") {
+      currentGallery = HOTEL_GALLERY.slice();
+      currentGalleryIndex = 0;
+      detailImgWrapper.style.display = "block";
+      detailDots.style.display = "flex";
+      updateGalleryImage();
+    } else {
+      currentGallery = [];
+      detailImgWrapper.style.display = "none";
+      detailDots.style.display = "none";
+      detailImg.src = "";
+    }
+
+    if (!maps) {
+      detailMapsBtn.style.display = "none";
+    } else {
+      detailMapsBtn.style.display = "inline-block";
+    }
+  });
+});
+
+// tap image to go next
+detailImg.addEventListener("click", () => {
+  if (!currentGallery.length) return;
+  currentGalleryIndex = (currentGalleryIndex + 1) % currentGallery.length;
+  updateGalleryImage();
+});
+
+detailClose.addEventListener("click", () => {
+  detailBackdrop.classList.remove("active");
+});
+
+detailBackdrop.addEventListener("click", e => {
+  if (e.target === detailBackdrop) {
+    detailBackdrop.classList.remove("active");
+  }
+});
+
+detailMapsBtn.addEventListener("click", () => {
+  if (currentMapsUrl) {
+    window.open(currentMapsUrl, "_blank");
+  }
+});
+</script>
+</body>
+</html>
