@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>My Trip</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", system-ui, sans-serif;
+      background: #0b0b0f;
+      color: #f5f5f5;
+    }
+
+    .container {
+      max-width: 480px;
+      margin: 0 auto;
+      padding: 16px 16px 40px 16px;
+    }
+
+    .header {
+      margin-bottom: 16px;
+    }
+
+    .header-title-small {
+      font-size: 13px;
+      color: #b0b0b0;
+      margin-bottom: 4px;
+    }
+
+    .header-title-main {
+      font-size: 20px;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+
+    .header-sub {
+      font-size: 12px;
+      color: #9a9a9a;
+      line-height: 1.4;
+    }
+
+    .card {
+      background: #14141b;
+      border-radius: 16px;
+      padding: 12px 14px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6);
+      margin-bottom: 14px;
+    }
+
+    .trip-row {
+      display: flex;
+      justify-content: space-between;
+      font-size: 12px;
+      color: #d0d0d0;
+    }
+
+    .trip-col-title {
+      font-size: 11px;
+      color: #aaaaaa;
+      margin-bottom: 2px;
+    }
+
+    .trip-col-main {
+      font-size: 13px;
+    }
+
+    .trip-col-sub {
+      font-size: 11px;
+      color: #999999;
+      margin-top: 2px;
+    }
+
+    .day-tabs {
+      display: flex;
+      gap: 8px;
+      margin: 16px 0 10px 0;
+    }
+
+    .day-tab {
+      flex: 1;
+      padding: 7px 0;
+      text-align: center;
+      font-size: 13px;
+      border-radius: 999px;
+      border: none;
+      background: #1f1f27;
+      color: #dddddd;
+      opacity: 0.7;
+    }
+
+    .day-tab.active {
+      background: #f5c542;
+      color: #101010;
+      opacity: 1;
+      font-weight: 600;
+    }
+
+    .day-tab:active {
+      transform: scale(0.98);
+    }
+
+    .day-content {
+      display: none;
+    }
+
+    .day-content.active {
+      display: block;
+    }
+
+    .section-title {
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 4px;
+      color: #f7d777;
+    }
+
+    .section-sub {
+      font-size: 11px;
+      color: #a8a8a8;
+      margin-bottom: 8px;
+    }
+
+    .timeline-item {
+      display: flex;
+      gap: 10px;
+      padding: 10px 8px;
+      border-radius: 12px;
+      background: #181821;
+      margin-bottom: 6px;
+    }
+
+    .time {
+      width: 54px;
+      font-size: 13px;
+      color: #b5b5b5;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .icon {
+      width: 22px;
+      font-size: 20px;
+      line-height: 22px;
+    }
+
+    .content {
+      flex: 1;
+    }
+
+    .content-title {
+      font-size: 14px;
+      margin-bottom: 2px;
+    }
+
+    .content-note {
+      font-size: 11px;
+      color: #a2a2a2;
+    }
+
+    .footer-note {
+      margin-top: 18px;
+      font-size: 10px;
+      color: #777777;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- 行程標頭 -->
+    <div class="header">
+      <div class="header-title-small">My Trip</div>
+      <div class="header-title-main">日本秋季關西行程</div>
+      <div class="header-sub">
+        去程  CI0152  TPE → KIX  09:00 → 12:50<br />
+        回程  CI0153  KIX → TPE  14:00 → 15:55
+      </div>
+    </div>
+
+    <!-- 航班摘要卡片 -->
+    <div class="card">
+      <div class="trip-row">
+        <div>
+          <div class="trip-col-title">去程</div>
+          <div class="trip-col-main">十月十六日  TPE → KIX</div>
+          <div class="trip-col-sub">CI0152  早上航班</div>
+        </div>
+        <div>
+          <div class="trip-col-title">回程</div>
+          <div class="trip-col-main">十月二十日  KIX → TPE</div>
+          <div class="trip-col-sub">CI0153  下午航班</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Day 選擇 -->
+    <div class="day-tabs">
+      <button class="day-tab active" data-day="1">Day 1</button>
+      <button class="day-tab" data-day="2">Day 2</button>
+      <button class="day-tab" data-day="3">Day 3</button>
+      <button class="day-tab" data-day="4">Day 4</button>
+      <button class="day-tab" data-day="5">Day 5</button>
+    </div>
+
+    <!-- Day 1 內容示例 -->
+    <div class="day-content active" data-day="1">
+      <div class="section-title">京都初印象  嵐山和月燈路</div>
+      <div class="section-sub">十月十六日  主題  自然 和 移動日</div>
+
+      <div class="timeline-item">
+        <div class="time">05:30</div>
+        <div class="icon">🚗</div>
+        <div class="content">
+          <div class="content-title">前往機場</div>
+          <div class="content-note">竹北出發  駕車到桃園第二航廈  預留路程時間</div>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="time">09:00</div>
+        <div class="icon">✈️</div>
+        <div class="content">
+          <div class="content-title">飛往大阪關西機場</div>
+          <div class="content-note">搭乘 CI0152  機上填寫入境表和預備交通資料</div>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="time">13:00</div>
+        <div class="icon">🛬</div>
+        <div class="content">
+          <div class="content-title">抵達關西機場</div>
+          <div class="content-note">辦理入境  領行李  辦理交通卡和兌換現金</div>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="time">14:00</div>
+        <div class="icon">🚆</div>
+        <div class="content">
+          <div class="content-title">搭乘 JR Haruka 前往京都</div>
+          <div class="content-note">車程約七十到八十分鐘  抵達京都車站後轉乘地鐵</div>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="time">15:30</div>
+        <div class="icon">🏨</div>
+        <div class="content">
+          <div class="content-title">入住 Hotel The M s Kyoto</div>
+          <div class="content-note">放低行李  稍作休息  確認晚間行程時間</div>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="time">16:10</div>
+        <div class="icon">🌉</div>
+        <div class="content">
+          <div class="content-title">嵐山漫步  渡月橋和竹林小徑</div>
+          <div class="content-note">欣賞山景和河景  如天氣許可可乘小船</div>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="time">18:00</div>
+        <div class="icon">🕯️</div>
+        <div class="content">
+          <div class="content-title">參加嵐山月燈路活動</div>
+          <div class="content-note">夜間燈光點綴竹林和街道  氣氛浪漫</div>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="time">19:30</div>
+        <div class="icon">🍽️</div>
+        <div class="content">
+          <div class="content-title">晚餐和返回酒店</div>
+          <div class="content-note">於嵐山附近用餐  之後返回京都酒店休息</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Day 2 至 Day 5 先放示例文字  之後可以請我幫你填滿 -->
+    <div class="day-content" data-day="2">
+      <div class="section-title">Day 2 行程</div>
+      <div class="section-sub">請日後告訴我你想排甚麼行程  我可以幫你寫好內容</div>
+    </div>
+
+    <div class="day-content" data-day="3">
+      <div class="section-title">Day 3 行程</div>
+      <div class="section-sub">例如大阪市區  通天閣  心齋橋  或環球影城</div>
+    </div>
+
+    <div class="day-content" data-day="4">
+      <div class="section-title">Day 4 行程</div>
+      <div class="section-sub">可以是奈良或神戶一日遊  之後我可以幫你細化</div>
+    </div>
+
+    <div class="day-content" data-day="5">
+      <div class="section-title">Day 5 行程</div>
+      <div class="section-sub">預留購物和回程時間  可加上最後整理行李提醒</div>
+    </div>
+
+    <div class="footer-note">
+      範本由 AI 協助產生  你可以在未來每次旅行時再請我幫你更新內容
+    </div>
+  </div>
+
+  <script>
+    const tabs = document.querySelectorAll(".day-tab");
+    const days = document.querySelectorAll(".day-content");
+
+    tabs.forEach((tab) => {
+      tab.addEventListener("click", () => {
+        tabs.forEach((t) => t.classList.remove("active"));
+        days.forEach((d) => d.classList.remove("active"));
+
+        tab.classList.add("active");
+        const day = tab.getAttribute("data-day");
+        const activeDay = document.querySelector('.day-content[data-day="' + day + '"]');
+        if (activeDay) {
+          activeDay.classList.add("active");
+          window.scrollTo({ top: 0, behavior: "smooth" });
+        }
+      });
+    });
+  </script>
+</body>
+</html>
