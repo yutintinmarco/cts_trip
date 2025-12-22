@@ -42,10 +42,11 @@
       background: rgba(245,245,247,0.45);
     }
 
-    .container {max-width: 480px;
+    .container {
+      max-width: 480px;
       margin: 0 auto;
-      padding: 16px 16px 40px 16px;M0px;
-}
+      padding: 16px 16px 40px 16px;
+    }
     .header {
       margin-bottom: 10px;
     }
@@ -279,21 +280,26 @@
       margin-top: 2px;
     }
    .day-tabs {
-display: flex;
-      gap: 8px;
-      margin: 16px 0 10px 0;
-    }
+  display: flex;
+  gap: 8px;
+  margin: 16px 0 10px 0;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  padding-bottom: 2px;
+}
 
 .day-tab {
-flex: 1;
-      padding: 7px 0;
-      text-align: center;
-      font-size: 13px;
-      border-radius: 999px;
-      border: 1px solid #dadada;
-      background: #f8f8fa;
-      color: #555555;
-    }
+  flex: 0 0 auto;
+  min-width: 78px;
+  padding: 7px 12px;
+  text-align: center;
+  font-size: 13px;
+  border-radius: 999px;
+  border: 1px solid #dadada;
+  background: #f8f8fa;
+  color: #555555;
+  white-space: nowrap;
+}
     .day-tab.active {
       background: #ffe58f;
       border-color: #f5c542;
@@ -449,234 +455,6 @@ flex: 1;
       background: #f9f9fb;
       font-size: calc(12px * var(--font-scale));
     }
-  
-    /* Bottom sheet tabs */
-    .container {
-      padding-bottom: 86px; /* leave room for bottom tabs */
-    }
-    /* Snacks list */
-    .snack-item .time {
-      width: 0;
-      display: none;
-    }
-    .snack-item {
-      padding: 10px 10px;
-    }
-
-  
-/* Bottom sheet tabs - Excel style */
-    .container {
-      padding-bottom: 150px; /* leave room for floating tabs */
-    }
-    .bottom-tab:active {
-      transform: translateY(1px);
-    }
-    /* Optional baseline like a sheet edge */
-    /* Bottom band to anchor Excel-like tabs and prevent content overlap */
-    .container {
-      padding-bottom: 170px; /* room for band + tabs */
-    }
-    /* remove old baseline if any */
-    /* Full-width sheet tabs aligned to container width */
-    /* iOS style bottom toolbar */
-    .container {
-      padding-bottom: 220px; /* prevent content being covered by bottom toolbar */
-    }
-
-    .bottom-band {
-      position: fixed;
-      left: 0;
-      right: 0;
-      bottom: calc(env(safe-area-inset-bottom) + 38px); /* about 1cm above bottom */
-      height: 78px;
-      background: rgba(245,245,247,0.92);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      border-top: 1px solid rgba(207,207,214,0.9);
-      box-shadow: 0 -10px 24px rgba(15,23,42,0.14);
-      z-index: 1190;
-      display: flex;
-      justify-content: center;
-      pointer-events: none;
-    }
-
-    .bottom-tabs {
-      width: calc(100% - 24px);
-      max-width: 720px; /* align to main content width */
-      margin: 0 auto;
-      padding: 14px 0 0 0;
-      display: flex;
-      gap: 12px;
-      justify-content: center;
-      align-items: center;
-      pointer-events: auto;
-    }
-
-    .bottom-tab {
-      flex: 1;
-      min-width: 0;
-      height: 52px;
-      border: 1px solid rgba(200,200,205,0.9);
-      background: rgba(255,255,255,0.78);
-      color: #111111;
-      font-weight: 700;
-      font-size: 15px;
-      border-radius: 18px;
-      box-shadow: 0 10px 18px rgba(15,23,42,0.10);
-    }
-
-    .bottom-tab.active {
-      background: rgba(17,17,17,0.88);
-      color: #ffffff;
-      border-color: rgba(17,17,17,0.88);
-      box-shadow: 0 12px 22px rgba(15,23,42,0.18);
-    }
-
-    .bottom-tab:active {
-      transform: translateY(1px);
-    }
-  /* Bottom toolbar flush to bottom */
-    .bottom-band {
-      bottom: 0;
-      height: calc(78px + env(safe-area-inset-bottom));
-      padding-bottom: env(safe-area-inset-bottom);
-    }
-  /* Raise toolbar top to mid of buttons */
-    .bottom-band {
-      height: calc(52px / 2 + 52px + env(safe-area-inset-bottom));
-      padding-top: calc(52px / 2);
-    }
-
-    .bottom-tabs {
-      transform: translateY(calc(-52px / 2));
-    }
-  /* Floating action button + pop menu */
-    .container {
-      padding-bottom: 32px; /* no bottom toolbar now */
-    }
-    .fab-wrap {
-      position: fixed;
-      right: 16px;
-      bottom: calc(16px + env(safe-area-inset-bottom));
-      z-index: 1400;
-      display: flex;
-      flex-direction: column;
-      align-items: flex-end;
-      gap: 10px;
-    }
-    .fab {
-      width: 54px;
-      height: 54px;
-      border-radius: 18px;
-      border: 1px solid rgba(200,200,205,0.9);
-      background: rgba(245,245,247,0.92);
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
-      box-shadow: 0 12px 24px rgba(15,23,42,0.18);
-      font-size: 18px;
-      font-weight: 800;
-      color: #111111;
-    }
-    .fab:active { transform: translateY(1px); }
-
-    .fab-menu {
-      display: none;
-      min-width: 160px;
-      padding: 10px;
-      border-radius: 18px;
-      border: 1px solid rgba(200,200,205,0.9);
-      background: rgba(245,245,247,0.92);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      box-shadow: 0 16px 30px rgba(15,23,42,0.20);
-    }
-    .fab-menu.open { display: flex; flex-direction: column; gap: 8px; }
-
-    .fab-item {
-      width: 100%;
-      height: 44px;
-      border-radius: 14px;
-      border: 1px solid rgba(200,200,205,0.9);
-      background: rgba(255,255,255,0.78);
-      font-size: 14px;
-      font-weight: 700;
-      color: #111111;
-    }
-    .fab-item.active {
-      background: rgba(17,17,17,0.88);
-      color: #ffffff;
-      border-color: rgba(17,17,17,0.88);
-    }
-  /* Smaller cut-edge FAB */
-    .fab {
-      width: 44px;
-      height: 44px;
-      border-radius: 14px;
-      font-size: 16px;
-      box-shadow: 0 8px 16px rgba(15,23,42,0.14);
-    }
-
-    .fab-menu {
-      min-width: 120px;
-      padding: 8px;
-      border-radius: 14px;
-    }
-
-    .fab-item {
-      height: 36px;
-      border-radius: 12px;
-      font-size: 15px;
-    }
-  /* Perfect circular FAB */
-    .fab {
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      padding: 0;
-      font-size: 16px;
-    }
-  /* Circular menu buttons inside FAB */
-    .fab-menu {
-      min-width: auto;
-      padding: 8px;
-      border-radius: 18px;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      align-items: flex-end;
-    }
-
-    .fab-item {
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      padding: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 18px;
-    }
-  /* Ensure FAB menu hidden by default */
-    .fab-menu {
-      display: none;
-    }
-    .fab-menu.open {
-      display: flex;
-    }
-  
-    /* FAB icon: use emoji ⚙️, perfectly centered */
-    .fab {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      line-height: 1;
-      font-size: 18px;
-    }
-    .fab-emoji {
-      display: block;
-      transform: translateY(0);
-    }
-
   </style>
 <link rel="apple-touch-icon" href="assets/icon/trip_icon.png" />
   <link rel="icon" type="image/png" href="assets/icon/trip_icon.png" />
@@ -699,8 +477,8 @@ flex: 1;
           <div class="font-controls" aria-label="Font size controls">
             <button class="font-btn" id="font-smaller" type="button" aria-label="Smaller text">A−</button>
             <button class="font-btn" id="font-larger" type="button" aria-label="Larger text">A+</button>
-            <button class="refresh-btn" id="refresh-btn">⟳</button>
           </div>
+          <button class="refresh-btn" id="refresh-btn">⟳</button>
         </div>
       </div>
 
@@ -745,39 +523,15 @@ flex: 1;
       <div class="weather-days" id="weather-days"></div>
     </div>
 
-    <div id="itinerary-view">
-<div class="day-tabs" id="day-tabs"></div>
+    <div class="day-tabs" id="day-tabs"></div>
 
     <div id="day-contents"></div>
-</div>
-
-<div id="snacks-view" style="display:none;">
-  <div class="card">
-    <div class="weather-header">
-      <div class="weather-title">小食清單</div>
-      <div class="weather-updated" id="snacks-count"></div>
-    </div>
-    <div class="section-sub" style="margin-bottom:10px;">路過即食  不設時間  點擊可開啟地圖</div>
-    <div id="snacks-list"></div>
-  </div>
-</div>
 
     <div class="footer-note" id="footer-note">
       行程  天氣  日出日落  照片及地圖由 AI 協助整合  點擊酒店及景點可查看詳細資訊
     </div>
   </div>
-  
-    
-    <div class="fab-wrap" aria-label="快速切換">
-      <button class="fab" id="fab-toggle" type="button" aria-expanded="false" aria-controls="fab-menu"><span class="fab-emoji" aria-hidden="true">⚙️</span></button>
-      <div class="fab-menu" id="fab-menu" role="menu" aria-hidden="true">
-        <button class="fab-item active" id="bt-itinerary" type="button" role="menuitem">🗓️</button>
-        <button class="fab-item" id="bt-snacks" type="button" role="menuitem">🍡</button>
-      </div>
-    </div>
-
-</div>
-</div>
+  </div>
 
   <div class="modal-backdrop" id="detail-backdrop">
     <div class="modal">
@@ -789,9 +543,9 @@ flex: 1;
       <div class="modal-time" id="detail-time">時間</div>
       <div class="modal-body" id="detail-body">詳細內容</div>
       <div class="modal-actions">
-        <button class="modal-link-btn" id="detail-website-btn" style="display:none;">在官方網頁開啟</button>
+        <button class="modal-link-btn" id="detail-dianping-btn" style="display:none;">在大眾點評開啟</button>
         <button class="modal-link-btn" id="detail-booking-btn" style="display:none;">查看酒店預訂 PDF</button>
-        <button class="modal-link-btn" id="detail-maps-btn">在Google地圖開啟</button>
+        <button class="modal-link-btn" id="detail-maps-btn">在百度地圖開啟</button>
         <button class="modal-close-btn" id="detail-close">關閉</button>
       </div>
     </div>
@@ -1037,7 +791,7 @@ flex: 1;
     const detailImgWrapper = document.getElementById("detail-img-wrapper");
     const detailImg = document.getElementById("detail-img");
     const detailDots = document.getElementById("detail-dots");
-    const detailWebsiteBtn = document.getElementById("detail-website-btn");
+    const detailDianpingBtn = document.getElementById("detail-dianping-btn");
 
 
     let bodyScrollY = 0;
@@ -1055,14 +809,17 @@ flex: 1;
     }
 
 const GALLERIES = {
-      "currysoup": [
-        "assets/galleries/currysoup/currysoup.jpg"
+      "hotel_quanji": [
+        "assets/galleries/quanji/quanji_1.webp",
+        "assets/galleries/quanji/quanji_2.webp"
       ],
-      "parfait": [
-        "assets/galleries/parfait/parfait.jpg"
+      "hotel_jingan": [
+        "assets/galleries/jingan/jingan_1.webp",
+        "assets/galleries/jingan/jingan_2.webp"
       ],
-      "nemuro": [
-        "assets/galleries/nemuro/nemuro.jpg"
+      "bund": [
+        "assets/galleries/bund/bund_1.webp",
+        "assets/galleries/bund/bund_2.jpg"
       ],
       "north_bund": [
         "assets/galleries/northbund/northbund_1.jpg",
@@ -1088,7 +845,7 @@ const GALLERIES = {
     };
 
     let currentMapsUrl = "";
-    let currentWebsiteUrl = "";
+    let currentDianpingUrl = "";
     let currentBookingUrl = "";
     let currentGallery = [];
     let currentGalleryIndex = 0;
@@ -1132,7 +889,7 @@ const GALLERIES = {
           const detailLinesRaw = item.getAttribute("data-detail-lines");
           const maps = item.getAttribute("data-maps") || "";
           const galleryKey = item.getAttribute("data-gallery") || "";
-          const Website = item.getAttribute("data-website") || "";
+          const dianping = item.getAttribute("data-dianping") || "";
           const bookingGalleryKey = item.getAttribute("data-booking-gallery") || "";
           const bookingPdf = item.getAttribute("data-booking-pdf") || "";
 
@@ -1149,7 +906,7 @@ const GALLERIES = {
             detailBody.textContent = detail;
           }
           currentMapsUrl = maps;
-          currentWebsiteUrl = website;
+          currentDianpingUrl = dianping;
           currentBookingUrl = bookingPdf;
           detailBackdrop.classList.add("active");
           lockBodyScroll();
@@ -1175,18 +932,18 @@ const GALLERIES = {
             detailImg.src = "";
           }
 
-          // Google地圖按鈕
+          // 百度地圖按鈕
           if (!maps) {
             detailMapsBtn.style.display = "none";
           } else {
             detailMapsBtn.style.display = "inline-block";
           }
 
-          // 按鈕
-          if (!Website) {
-            detailWebsiteBtn.style.display = "none";
+          // 大眾點評按鈕
+          if (!dianping) {
+            detailDianpingBtn.style.display = "none";
           } else {
-            detailWebsiteBtn.style.display = "inline-block";
+            detailDianpingBtn.style.display = "inline-block";
           }
 
           // PDF按鈕
@@ -1287,9 +1044,9 @@ const GALLERIES = {
       }
     });
 
-    detailWebsiteBtn.addEventListener("click", () => {
-     if (currentWebsiteUrl) {
-       window.open(currentWebsiteUrl, "_blank");
+    detailDianpingBtn.addEventListener("click", () => {
+     if (currentDianpingUrl) {
+       window.open(currentDianpingUrl, "_blank");
    }
    });
 
@@ -1346,6 +1103,89 @@ function getTokyoDateString() {
         chip.textContent = "今日  Day " + (todayIndex + 1) + "（" + day.date + "）";
         chip.classList.add("active");
         hideSquare();
+
+  
+      // Snacks tab
+      const snacksTab = document.createElement("button");
+      snacksTab.className = "day-tab";
+      snacksTab.dataset.dayIndex = "snacks";
+      snacksTab.textContent = "🍡 小食";
+      tabsEl.appendChild(snacksTab);
+
+      const snacksContent = document.createElement("div");
+      snacksContent.className = "day-content";
+      snacksContent.dataset.dayIndex = "snacks";
+
+      const snacksTitleEl = document.createElement("div");
+      snacksTitleEl.className = "section-title";
+      snacksTitleEl.textContent = (data.snacks && data.snacks.title) ? data.snacks.title : "小食清單";
+      snacksContent.appendChild(snacksTitleEl);
+
+      const snacksSubEl = document.createElement("div");
+      snacksSubEl.className = "section-sub";
+      snacksSubEl.textContent = (data.snacks && data.snacks.subtitle) ? data.snacks.subtitle : "路過即食  不設時間";
+      snacksContent.appendChild(snacksSubEl);
+
+      const snacksItems = (data.snacks && Array.isArray(data.snacks.items)) ? data.snacks.items : [];
+      if (snacksItems.length) {
+        snacksItems.forEach(snack => {
+          const itemEl = document.createElement("div");
+          itemEl.className = "timeline-item clickable";
+          itemEl.setAttribute("data-title", snack.title || "");
+          const area = snack.area ? ("地區  " + snack.area) : "";
+          const category = snack.category ? ("類型  " + snack.category) : "";
+          const timeLabel = [area, category].filter(Boolean).join("  ·  ");
+          itemEl.setAttribute("data-time", timeLabel);
+          const lines = [];
+          if (snack.mustTry) lines.push("必點  " + snack.mustTry);
+          if (snack.note) lines.push(snack.note);
+          if (snack.hours) lines.push("時間  " + snack.hours);
+          if (snack.price) lines.push("預算  " + snack.price);
+          if (lines.length) itemEl.setAttribute("data-detail-lines", JSON.stringify(lines));
+          itemEl.setAttribute("data-detail", snack.note || "");
+          itemEl.setAttribute("data-maps", snack.maps || "");
+          if (snack.gallery) itemEl.setAttribute("data-gallery", snack.gallery);
+
+          const timeEl = document.createElement("div");
+          timeEl.className = "time";
+          timeEl.textContent = snack.area || "";
+
+          const iconEl = document.createElement("div");
+          iconEl.className = "icon";
+          iconEl.textContent = "🍡";
+
+          const contentWrap = document.createElement("div");
+          contentWrap.className = "content";
+
+          const contentTitle = document.createElement("div");
+          contentTitle.className = "content-title";
+          contentTitle.textContent = snack.title || "";
+
+          const contentNote = document.createElement("div");
+          contentNote.className = "content-note";
+          const noteParts = [];
+          if (snack.category) noteParts.push(snack.category);
+          if (snack.note) noteParts.push(snack.note);
+          contentNote.textContent = noteParts.join("  ·  ");
+
+          contentWrap.appendChild(contentTitle);
+          if (contentNote.textContent) contentWrap.appendChild(contentNote);
+
+          itemEl.appendChild(timeEl);
+          itemEl.appendChild(iconEl);
+          itemEl.appendChild(contentWrap);
+
+          snacksContent.appendChild(itemEl);
+        });
+      } else {
+        const empty = document.createElement("div");
+        empty.style.fontSize = "11px";
+        empty.style.color = "#777777";
+        empty.textContent = "未有小食清單  之後加入店名及地圖連結即可。";
+        snacksContent.appendChild(empty);
+      }
+
+      contentsEl.appendChild(snacksContent);
 
       const tabs = document.querySelectorAll(".day-tab");
         const dayContents = document.querySelectorAll(".day-content");
@@ -1459,8 +1299,8 @@ function getTokyoDateString() {
               if (item.gallery) {
                 itemEl.setAttribute("data-gallery", item.gallery);
               }
-              if (item.website) {
-               itemEl.setAttribute("data-website", item.website);
+              if (item.dianping) {
+               itemEl.setAttribute("data-dianping", item.dianping);
               }
               if (item.bookingGallery) {
                 itemEl.setAttribute("data-booking-gallery", item.bookingGallery);
@@ -1499,7 +1339,8 @@ function getTokyoDateString() {
             content.appendChild(itemEl);
           });
         }
-contentsEl.appendChild(content);
+
+        contentsEl.appendChild(content);
       });
 
       const tabs = document.querySelectorAll(".day-tab");
@@ -1518,125 +1359,8 @@ contentsEl.appendChild(content);
       });
 
       setupTimelineClickHandlers();
-      renderSnacks(data);
       updateTodayChipAndStatus(data);
     }
-
-    
-    // Bottom tabs: switch between itinerary and snacks
-    const btItinerary = document.getElementById("bt-itinerary");
-    const btSnacks = document.getElementById("bt-snacks");
-    const itineraryView = document.getElementById("itinerary-view");
-    const snacksView = document.getElementById("snacks-view");
-
-    function setBottomTab(active) {
-      // sync active state on menu buttons
-
-      if (!btItinerary || !btSnacks || !itineraryView || !snacksView) return;
-      if (active === "snacks") {
-        btItinerary.classList.remove("active");
-        btSnacks.classList.add("active");
-        itineraryView.style.display = "none";
-        snacksView.style.display = "block";
-        window.scrollTo({ top: 0, behavior: "smooth" });
-      } else {
-        btSnacks.classList.remove("active");
-        btItinerary.classList.add("active");
-        snacksView.style.display = "none";
-        itineraryView.style.display = "block";
-        window.scrollTo({ top: 0, behavior: "smooth" });
-      }
-    }
-
-    if (btItinerary) btItinerary.addEventListener("click", () => setBottomTab("itinerary"));
-    if (btSnacks) btSnacks.addEventListener("click", () => setBottomTab("snacks"));
-
-    // FAB menu toggle
-    const fabToggle = document.getElementById("fab-toggle");
-    const fabMenu = document.getElementById("fab-menu");
-
-    function closeFabMenu() {
-      if (!fabMenu || !fabToggle) return;
-      fabMenu.classList.remove("open");
-      fabMenu.setAttribute("aria-hidden", "true");
-      fabToggle.setAttribute("aria-expanded", "false");
-    }
-
-    function toggleFabMenu() {
-      if (!fabMenu || !fabToggle) return;
-      const isOpen = fabMenu.classList.toggle("open");
-      fabMenu.setAttribute("aria-hidden", isOpen ? "false" : "true");
-      fabToggle.setAttribute("aria-expanded", isOpen ? "true" : "false");
-    }
-
-    if (fabToggle) fabToggle.addEventListener("click", (e) => {
-      e.stopPropagation();
-      toggleFabMenu();
-    });
-
-    document.addEventListener("click", () => closeFabMenu(), { passive: true });
-    document.addEventListener("scroll", () => closeFabMenu(), { passive: true });
-
-    function renderSnacks(data) {
-      const listEl = document.getElementById("snacks-list");
-      const countEl = document.getElementById("snacks-count");
-      if (!listEl) return;
-
-      const snacks = (data && data.snacks && Array.isArray(data.snacks.items)) ? data.snacks.items : [];
-      if (countEl) countEl.textContent = snacks.length ? ("共 " + snacks.length + " 項") : "";
-
-      listEl.innerHTML = "";
-
-      if (!snacks.length) {
-        const empty = document.createElement("div");
-        empty.style.fontSize = "12px";
-        empty.style.color = "#777777";
-        empty.textContent = "未有小食清單  之後加入店名及地圖連結即可。";
-        listEl.appendChild(empty);
-        return;
-      }
-
-      snacks.forEach(s => {
-        const itemEl = document.createElement("div");
-        itemEl.className = "timeline-item snack-item" + (s.popup ? " clickable" : " clickable");
-        itemEl.setAttribute("data-title", s.title || "");
-        itemEl.setAttribute("data-time", (s.area ? s.area : "") + (s.category ? ("  " + s.category) : ""));
-        const detailLines = [];
-        if (s.must) detailLines.push("必點  " + s.must);
-        if (s.note) detailLines.push(s.note);
-        if (s.opening) detailLines.push("營業  " + s.opening);
-        itemEl.setAttribute("data-detail-lines", JSON.stringify(detailLines.length ? detailLines : ["點擊地圖前往"]));
-        itemEl.setAttribute("data-maps", s.maps || "");
-        if (s.gallery) itemEl.setAttribute("data-gallery", s.gallery);
-
-        const iconEl = document.createElement("div");
-        iconEl.className = "icon";
-        iconEl.textContent = "🍡";
-
-        const contentWrap = document.createElement("div");
-        contentWrap.className = "content";
-
-        const contentTitle = document.createElement("div");
-        contentTitle.className = "content-title";
-        contentTitle.textContent = s.title || "";
-
-        const contentNote = document.createElement("div");
-        contentNote.className = "content-note";
-        contentNote.textContent = (s.area ? (s.area + "  ") : "") + (s.category || "");
-
-        contentWrap.appendChild(contentTitle);
-        if (contentNote.textContent) contentWrap.appendChild(contentNote);
-
-        itemEl.appendChild(iconEl);
-        itemEl.appendChild(contentWrap);
-
-        listEl.appendChild(itemEl);
-      });
-
-      // Reuse existing modal click handlers
-      setupTimelineClickHandlers();
-    }
-
 
     fetch("trip_hokkaido.json")
       .then(r => r.json())
