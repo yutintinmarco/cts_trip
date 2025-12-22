@@ -789,7 +789,7 @@ flex: 1;
       <div class="modal-time" id="detail-time">時間</div>
       <div class="modal-body" id="detail-body">詳細內容</div>
       <div class="modal-actions">
-        <button class="modal-link-btn" id="detail-dianping-btn" style="display:none;">在大眾點評開啟</button>
+        <button class="modal-link-btn" id="detail-website-btn" style="display:none;">在官方網頁開啟</button>
         <button class="modal-link-btn" id="detail-booking-btn" style="display:none;">查看酒店預訂 PDF</button>
         <button class="modal-link-btn" id="detail-maps-btn">在Google地圖開啟</button>
         <button class="modal-close-btn" id="detail-close">關閉</button>
@@ -1037,7 +1037,7 @@ flex: 1;
     const detailImgWrapper = document.getElementById("detail-img-wrapper");
     const detailImg = document.getElementById("detail-img");
     const detailDots = document.getElementById("detail-dots");
-    const detailDianpingBtn = document.getElementById("detail-dianping-btn");
+    const detailWebsiteBtn = document.getElementById("detail-website-btn");
 
 
     let bodyScrollY = 0;
@@ -1088,7 +1088,7 @@ const GALLERIES = {
     };
 
     let currentMapsUrl = "";
-    let currentDianpingUrl = "";
+    let currentWebsiteUrl = "";
     let currentBookingUrl = "";
     let currentGallery = [];
     let currentGalleryIndex = 0;
@@ -1132,7 +1132,7 @@ const GALLERIES = {
           const detailLinesRaw = item.getAttribute("data-detail-lines");
           const maps = item.getAttribute("data-maps") || "";
           const galleryKey = item.getAttribute("data-gallery") || "";
-          const dianping = item.getAttribute("data-dianping") || "";
+          const Website = item.getAttribute("data-website") || "";
           const bookingGalleryKey = item.getAttribute("data-booking-gallery") || "";
           const bookingPdf = item.getAttribute("data-booking-pdf") || "";
 
@@ -1149,7 +1149,7 @@ const GALLERIES = {
             detailBody.textContent = detail;
           }
           currentMapsUrl = maps;
-          currentDianpingUrl = dianping;
+          currentWebsiteUrl = website;
           currentBookingUrl = bookingPdf;
           detailBackdrop.classList.add("active");
           lockBodyScroll();
@@ -1182,11 +1182,11 @@ const GALLERIES = {
             detailMapsBtn.style.display = "inline-block";
           }
 
-          // 大眾點評按鈕
-          if (!dianping) {
-            detailDianpingBtn.style.display = "none";
+          // 按鈕
+          if (!Website) {
+            detailWebsiteBtn.style.display = "none";
           } else {
-            detailDianpingBtn.style.display = "inline-block";
+            detailWebsiteBtn.style.display = "inline-block";
           }
 
           // PDF按鈕
@@ -1287,9 +1287,9 @@ const GALLERIES = {
       }
     });
 
-    detailDianpingBtn.addEventListener("click", () => {
-     if (currentDianpingUrl) {
-       window.open(currentDianpingUrl, "_blank");
+    detailWebsiteBtn.addEventListener("click", () => {
+     if (currentWebsiteUrl) {
+       window.open(currentWebsiteUrl, "_blank");
    }
    });
 
@@ -1459,8 +1459,8 @@ function getTokyoDateString() {
               if (item.gallery) {
                 itemEl.setAttribute("data-gallery", item.gallery);
               }
-              if (item.dianping) {
-               itemEl.setAttribute("data-dianping", item.dianping);
+              if (item.website) {
+               itemEl.setAttribute("data-website", item.website);
               }
               if (item.bookingGallery) {
                 itemEl.setAttribute("data-booking-gallery", item.bookingGallery);
