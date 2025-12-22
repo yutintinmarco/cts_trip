@@ -576,8 +576,6 @@ flex: 1;
       font-size: 18px;
       font-weight: 800;
       color: #111111;
-    
-      touch-action: manipulation;
     }
     .fab:active { transform: translateY(1px); }
 
@@ -666,64 +664,7 @@ flex: 1;
       display: flex;
     }
   
-    .fab {
-      touch-action: none;
-    }
-
-  
-    /* Ensure icons perfectly centered inside circular menu buttons */
-    .fab-item {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    .fab-item svg,
-    .fab-item span {
-      display: block;
-    }
-
-  
-    .fab
-
-  
-    .fab {
-      position: fixed;
-      touch-action: none;
-    }
-
-  
-    .fab {
-      position: fixed;
-      touch-action: none;
-      cursor: pointer;
-    }
-
-  
-    /* Make submenu follow FAB */
-    .fab-wrap {
-      position: fixed;
-      right: 16px;
-      bottom: calc(16px + env(safe-area-inset-bottom));
-      z-index: 1400;
-    }
-    .fab-menu {
-      position: absolute;
-      right: 0;
-      bottom: 48px; /* above the FAB */
-    }
-
-  
-    /* Submenu positioning closer to FAB */
-    .fab-menu {
-      bottom: 46px; /* closer above the FAB */
-      right: 0;
-    }
-
-  
-    .fab-wrap
-
-  
-    /* FAB: stable centered emoji */
+    /* FAB icon: use emoji ⚙️, perfectly centered */
     .fab {
       display: flex;
       align-items: center;
@@ -733,7 +674,7 @@ flex: 1;
     }
     .fab-emoji {
       display: block;
-      transform: translateY(0px);
+      transform: translateY(0);
     }
 
   </style>
@@ -1639,7 +1580,6 @@ contentsEl.appendChild(content);
     document.addEventListener("click", () => closeFabMenu(), { passive: true });
     document.addEventListener("scroll", () => closeFabMenu(), { passive: true });
 
-    
     function renderSnacks(data) {
       const listEl = document.getElementById("snacks-list");
       const countEl = document.getElementById("snacks-count");
@@ -1710,77 +1650,7 @@ contentsEl.appendChild(content);
         const chip = document.getElementById("today-chip");
         if (chip) chip.textContent = "無法載入行程資料";
       });
-  
-    
-    
-    
-    // Move FAB wrapper so submenu follows
-    (function () {
-      const fab = document.getElementById("fab-toggle");
-      const wrap = fab ? fab.closest(".fab-wrap") : null;
-      if (!fab || !wrap) return;
-
-      let startX = 0, startY = 0;
-      let offsetX = 0, offsetY = 0;
-      let  = false;
-      const THRESHOLD = 8;
-
-      const saved = localStorage.getItem("fab-wrap-pos");
-      if (saved) {
-        const p = JSON.parse(saved);
-        wrap.style.right = "auto";
-        wrap.style.bottom = "auto";
-        wrap.style.left = (p.clientX - offsetX) + "px";
-        wrap.style.top = (p.clientY - offsetY) + "px";
-      }
-
-      function getPoint(e) {
-        if (e.touches && e.touches[0]) return e.touches[0];
-        return e;
-      }
-
-      function onStart(e) {
-        const p = getPoint(e);
-        const rect = wrap.getBoundingClientRect();
-        startX = p.clientX;
-        startY = p.clientY;
-        offsetX = p.clientX - rect.left;
-        offsetY = p.clientY - rect.top;
-         = false;
-      }
-
-      function onMove(e) {
-        const p = getPoint(e);
-        const dx = p.clientX - startX;
-        const dy = p.clientY - startY;
-        if (! && Math.hypot(dx, dy) >= THRESHOLD) {
-           = true;
-        }
-        if (!) return;
-        wrap.style.right = "auto";
-        wrap.style.bottom = "auto";
-        wrap.style.left = (p.clientX - offsetX) + "px";
-        wrap.style.top = (p.clientY - offsetY) + "px";
-        e.preventDefault();
-      }
-
-      function onEnd() {
-        if () {
-          const rect = wrap.getBoundingClientRect();
-          localStorage.setItem("fab-wrap-pos", JSON.stringify({ x: rect.left, y: rect.top }));
-        }
-         = false;
-      }
-
-      fab.addEventListener("mousedown", onStart);
-      document.addEventListener("mousemove", onMove);
-      document.addEventListener("mouseup", onEnd);
-
-      fab.addEventListener("touchstart", onStart, { passive: true });
-      document.addEventListener("touchmove", onMove, { passive: false });
-      document.addEventListener("touchend", onEnd);
-    })();
-</script>
+  </script>
 </body>
 </html>
 
