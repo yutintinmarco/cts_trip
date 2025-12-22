@@ -680,6 +680,11 @@ flex: 1;
       display: block;
     }
 
+  
+    .fab.dragging {
+      opacity: 0.9;
+    }
+
   </style>
 <link rel="apple-touch-icon" href="assets/icon/trip_icon.png" />
   <link rel="icon" type="image/png" href="assets/icon/trip_icon.png" />
@@ -1660,15 +1665,16 @@ contentsEl.appendChild(content);
         if (chip) chip.textContent = "無法載入行程資料";
       });
   
-    // FAB: distinguish tap vs long-press drag (iOS-friendly)
+    
+    // FAB drag using touch events (iOS Safari reliable)
     (function () {
       const fab = document.getElementById("fab-toggle");
       if (!fab) return;
 
-      let pressTimer = null;
       let dragging = false;
       let startX = 0, startY = 0;
       let fabX = 0, fabY = 0;
+      let longPressTimer = null;
 
       const saved = localStorage.getItem("fab-pos");
       if (saved) {
@@ -1679,44 +1685,49 @@ contentsEl.appendChild(content);
         fab.style.top = p.y + "px";
       }
 
-      function startDrag(e) {
+      function startDrag(touch) {
         dragging = true;
         const rect = fab.getBoundingClientRect();
-        startX = e.clientX;
-        startY = e.clientY;
+        startX = touch.clientX;
+        startY = touch.clientY;
         fabX = rect.left;
         fabY = rect.top;
-        fab.setPointerCapture(e.pointerId);
+        fab.classList.add("dragging");
       }
 
-      function onPointerDown(e) {
-        pressTimer = setTimeout(() => startDrag(e), 200);
-      }
+      fab.addEventListener("touchstart", (e) => {
+        if (e.touches.length !== 1) return;
+        const touch = e.touches[0];
+        longPressTimer = setTimeout(() => startDrag(touch), 250);
+      }, { passive: true });
 
-      function onPointerMove(e) {
+      fab.addEventListener("touchmove", (e) => {
         if (!dragging) return;
-        const dx = e.clientX - startX;
-        const dy = e.clientY - startY;
+        e.preventDefault();
+        const touch = e.touches[0];
+        const dx = touch.clientX - startX;
+        const dy = touch.clientY - startY;
         fab.style.right = "auto";
         fab.style.bottom = "auto";
         fab.style.left = fabX + dx + "px";
         fab.style.top = fabY + dy + "px";
-      }
+      }, { passive: false });
 
-      function endPointer(e) {
-        clearTimeout(pressTimer);
+      fab.addEventListener("touchend", () => {
+        clearTimeout(longPressTimer);
         if (dragging) {
           dragging = false;
-          fab.releasePointerCapture(e.pointerId);
+          fab.classList.remove("dragging");
           const rect = fab.getBoundingClientRect();
           localStorage.setItem("fab-pos", JSON.stringify({ x: rect.left, y: rect.top }));
         }
-      }
+      });
 
-      fab.addEventListener("pointerdown", onPointerDown);
-      fab.addEventListener("pointermove", onPointerMove);
-      fab.addEventListener("pointerup", endPointer);
-      fab.addEventListener("pointercancel", endPointer);
+      fab.addEventListener("touchcancel", () => {
+        clearTimeout(longPressTimer);
+        dragging = false;
+        fab.classList.remove("dragging");
+      });
     })();
 
   </script>
