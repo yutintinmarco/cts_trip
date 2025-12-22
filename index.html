@@ -683,9 +683,7 @@ flex: 1;
     }
 
   
-    .fab.dragging {
-      opacity: 0.9;
-    }
+    .fab
 
   
     .fab {
@@ -722,9 +720,7 @@ flex: 1;
     }
 
   
-    .fab-wrap.dragging {
-      opacity: 0.95;
-    }
+    .fab-wrap
 
   
     /* FAB: stable centered emoji */
@@ -1726,7 +1722,7 @@ contentsEl.appendChild(content);
 
       let startX = 0, startY = 0;
       let offsetX = 0, offsetY = 0;
-      let dragging = false;
+      let  = false;
       const THRESHOLD = 8;
 
       const saved = localStorage.getItem("fab-wrap-pos");
@@ -1750,17 +1746,17 @@ contentsEl.appendChild(content);
         startY = p.clientY;
         offsetX = p.clientX - rect.left;
         offsetY = p.clientY - rect.top;
-        dragging = false;
+         = false;
       }
 
       function onMove(e) {
         const p = getPoint(e);
         const dx = p.clientX - startX;
         const dy = p.clientY - startY;
-        if (!dragging && Math.hypot(dx, dy) >= THRESHOLD) {
-          dragging = true;
+        if (! && Math.hypot(dx, dy) >= THRESHOLD) {
+           = true;
         }
-        if (!dragging) return;
+        if (!) return;
         wrap.style.right = "auto";
         wrap.style.bottom = "auto";
         wrap.style.left = (p.clientX - offsetX) + "px";
@@ -1769,11 +1765,11 @@ contentsEl.appendChild(content);
       }
 
       function onEnd() {
-        if (dragging) {
+        if () {
           const rect = wrap.getBoundingClientRect();
           localStorage.setItem("fab-wrap-pos", JSON.stringify({ x: rect.left, y: rect.top }));
         }
-        dragging = false;
+         = false;
       }
 
       fab.addEventListener("mousedown", onStart);
