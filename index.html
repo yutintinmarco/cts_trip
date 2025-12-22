@@ -483,36 +483,35 @@ flex: 1;
       padding-bottom: 220px; /* prevent content being covered by bottom toolbar */
     }
 
-    .bottom-tab:active {
-      transform: translateY(1px);
-    }
-  /* Bottom toolbar flush to bottom */
-    /* Fix toolbar height so buttons are fully inside the band */
-    /* No-band option: floating pill tabs */
-    .container {
-      padding-bottom: 140px; /* room for floating tabs */
-    }
-    .bottom-tabs {
+    .bottom-band {
       position: fixed;
-      left: 12px;
-      right: 12px;
-      bottom: calc(12px + env(safe-area-inset-bottom));
+      left: 0;
+      right: 0;
+      bottom: calc(env(safe-area-inset-bottom) + 38px); /* about 1cm above bottom */
+      height: 78px;
+      background: rgba(245,245,247,0.92);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-top: 1px solid rgba(207,207,214,0.9);
+      box-shadow: 0 -10px 24px rgba(15,23,42,0.14);
+      z-index: 1190;
+      display: flex;
+      justify-content: center;
+      pointer-events: none;
+    }
+
+    .bottom-tabs {
       width: calc(100% - 24px);
-      max-width: 720px;
+      max-width: 720px; /* align to main content width */
       margin: 0 auto;
-      padding: 10px;
+      padding: 14px 0 0 0;
       display: flex;
       gap: 12px;
       justify-content: center;
       align-items: center;
-      background: rgba(245,245,247,0.92);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      border: 1px solid rgba(207,207,214,0.9);
-      border-radius: 22px;
-      box-shadow: 0 14px 30px rgba(15,23,42,0.18);
-      z-index: 1200;
+      pointer-events: auto;
     }
+
     .bottom-tab {
       flex: 1;
       min-width: 0;
@@ -525,11 +524,144 @@ flex: 1;
       border-radius: 18px;
       box-shadow: 0 10px 18px rgba(15,23,42,0.10);
     }
+
     .bottom-tab.active {
       background: rgba(17,17,17,0.88);
       color: #ffffff;
       border-color: rgba(17,17,17,0.88);
       box-shadow: 0 12px 22px rgba(15,23,42,0.18);
+    }
+
+    .bottom-tab:active {
+      transform: translateY(1px);
+    }
+  /* Bottom toolbar flush to bottom */
+    .bottom-band {
+      bottom: 0;
+      height: calc(78px + env(safe-area-inset-bottom));
+      padding-bottom: env(safe-area-inset-bottom);
+    }
+  /* Raise toolbar top to mid of buttons */
+    .bottom-band {
+      height: calc(52px / 2 + 52px + env(safe-area-inset-bottom));
+      padding-top: calc(52px / 2);
+    }
+
+    .bottom-tabs {
+      transform: translateY(calc(-52px / 2));
+    }
+  /* Floating action button + pop menu */
+    .container {
+      padding-bottom: 32px; /* no bottom toolbar now */
+    }
+    .fab-wrap {
+      position: fixed;
+      right: 16px;
+      bottom: calc(16px + env(safe-area-inset-bottom));
+      z-index: 1400;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 10px;
+    }
+    .fab {
+      width: 54px;
+      height: 54px;
+      border-radius: 18px;
+      border: 1px solid rgba(200,200,205,0.9);
+      background: rgba(245,245,247,0.92);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      box-shadow: 0 12px 24px rgba(15,23,42,0.18);
+      font-size: 18px;
+      font-weight: 800;
+      color: #111111;
+    }
+    .fab:active { transform: translateY(1px); }
+
+    .fab-menu {
+      display: none;
+      min-width: 160px;
+      padding: 10px;
+      border-radius: 18px;
+      border: 1px solid rgba(200,200,205,0.9);
+      background: rgba(245,245,247,0.92);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      box-shadow: 0 16px 30px rgba(15,23,42,0.20);
+    }
+    .fab-menu.open { display: flex; flex-direction: column; gap: 8px; }
+
+    .fab-item {
+      width: 100%;
+      height: 44px;
+      border-radius: 14px;
+      border: 1px solid rgba(200,200,205,0.9);
+      background: rgba(255,255,255,0.78);
+      font-size: 14px;
+      font-weight: 700;
+      color: #111111;
+    }
+    .fab-item.active {
+      background: rgba(17,17,17,0.88);
+      color: #ffffff;
+      border-color: rgba(17,17,17,0.88);
+    }
+  /* Smaller cut-edge FAB */
+    .fab {
+      width: 44px;
+      height: 44px;
+      border-radius: 14px;
+      font-size: 16px;
+      box-shadow: 0 8px 16px rgba(15,23,42,0.14);
+    }
+
+    .fab-menu {
+      min-width: 120px;
+      padding: 8px;
+      border-radius: 14px;
+    }
+
+    .fab-item {
+      height: 36px;
+      border-radius: 12px;
+      font-size: 15px;
+    }
+  /* Perfect circular FAB */
+    .fab {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      padding: 0;
+      font-size: 16px;
+    }
+  /* Circular menu buttons inside FAB */
+    .fab-menu {
+      min-width: auto;
+      padding: 8px;
+      border-radius: 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      align-items: flex-end;
+    }
+
+    .fab-item {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      padding: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+    }
+  /* Ensure FAB menu hidden by default */
+    .fab-menu {
+      display: none;
+    }
+    .fab-menu.open {
+      display: flex;
     }
   </style>
 <link rel="apple-touch-icon" href="assets/icon/trip_icon.png" />
@@ -621,10 +753,16 @@ flex: 1;
     </div>
   </div>
   
-    <div class="bottom-tabs" role="tablist" aria-label="主選單">
-      <button class="bottom-tab active" id="bt-itinerary" type="button">行程</button>
-      <button class="bottom-tab" id="bt-snacks" type="button">小食</button>
+    
+    <div class="fab-wrap" aria-label="快速切換">
+      <button class="fab" id="fab-toggle" type="button" aria-expanded="false" aria-controls="fab-menu">☰</button>
+      <div class="fab-menu" id="fab-menu" role="menu" aria-hidden="true">
+        <button class="fab-item active" id="bt-itinerary" type="button" role="menuitem">🗓️</button>
+        <button class="fab-item" id="bt-snacks" type="button" role="menuitem">🍡</button>
+      </div>
     </div>
+
+</div>
 </div>
 
   <div class="modal-backdrop" id="detail-backdrop">
@@ -1381,6 +1519,8 @@ contentsEl.appendChild(content);
     const snacksView = document.getElementById("snacks-view");
 
     function setBottomTab(active) {
+      // sync active state on menu buttons
+
       if (!btItinerary || !btSnacks || !itineraryView || !snacksView) return;
       if (active === "snacks") {
         btItinerary.classList.remove("active");
@@ -1399,6 +1539,32 @@ contentsEl.appendChild(content);
 
     if (btItinerary) btItinerary.addEventListener("click", () => setBottomTab("itinerary"));
     if (btSnacks) btSnacks.addEventListener("click", () => setBottomTab("snacks"));
+
+    // FAB menu toggle
+    const fabToggle = document.getElementById("fab-toggle");
+    const fabMenu = document.getElementById("fab-menu");
+
+    function closeFabMenu() {
+      if (!fabMenu || !fabToggle) return;
+      fabMenu.classList.remove("open");
+      fabMenu.setAttribute("aria-hidden", "true");
+      fabToggle.setAttribute("aria-expanded", "false");
+    }
+
+    function toggleFabMenu() {
+      if (!fabMenu || !fabToggle) return;
+      const isOpen = fabMenu.classList.toggle("open");
+      fabMenu.setAttribute("aria-hidden", isOpen ? "false" : "true");
+      fabToggle.setAttribute("aria-expanded", isOpen ? "true" : "false");
+    }
+
+    if (fabToggle) fabToggle.addEventListener("click", (e) => {
+      e.stopPropagation();
+      toggleFabMenu();
+    });
+
+    document.addEventListener("click", () => closeFabMenu(), { passive: true });
+    document.addEventListener("scroll", () => closeFabMenu(), { passive: true });
 
     function renderSnacks(data) {
       const listEl = document.getElementById("snacks-list");
