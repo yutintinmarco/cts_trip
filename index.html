@@ -685,6 +685,12 @@ flex: 1;
       opacity: 0.9;
     }
 
+  
+    .fab {
+      position: fixed;
+      touch-action: none;
+    }
+
   </style>
 <link rel="apple-touch-icon" href="assets/icon/trip_icon.png" />
   <link rel="icon" type="image/png" href="assets/icon/trip_icon.png" />
@@ -1666,15 +1672,15 @@ contentsEl.appendChild(content);
       });
   
     
-    // FAB drag using touch events (iOS Safari reliable)
+    
+    // FAB simple drag (mouse + touch, no long-press)
     (function () {
       const fab = document.getElementById("fab-toggle");
       if (!fab) return;
 
       let dragging = false;
-      let startX = 0, startY = 0;
-      let fabX = 0, fabY = 0;
-      let longPressTimer = null;
+      let offsetX = 0;
+      let offsetY = 0;
 
       const saved = localStorage.getItem("fab-pos");
       if (saved) {
@@ -1685,49 +1691,41 @@ contentsEl.appendChild(content);
         fab.style.top = p.y + "px";
       }
 
-      function startDrag(touch) {
+      function start(e) {
         dragging = true;
         const rect = fab.getBoundingClientRect();
-        startX = touch.clientX;
-        startY = touch.clientY;
-        fabX = rect.left;
-        fabY = rect.top;
-        fab.classList.add("dragging");
+        const x = e.touches ? e.touches[0].clientX : e.clientX;
+        const y = e.touches ? e.touches[0].clientY : e.clientY;
+        offsetX = x - rect.left;
+        offsetY = y - rect.top;
+        e.preventDefault();
       }
 
-      fab.addEventListener("touchstart", (e) => {
-        if (e.touches.length !== 1) return;
-        const touch = e.touches[0];
-        longPressTimer = setTimeout(() => startDrag(touch), 250);
-      }, { passive: true });
-
-      fab.addEventListener("touchmove", (e) => {
+      function move(e) {
         if (!dragging) return;
-        e.preventDefault();
-        const touch = e.touches[0];
-        const dx = touch.clientX - startX;
-        const dy = touch.clientY - startY;
+        const x = e.touches ? e.touches[0].clientX : e.clientX;
+        const y = e.touches ? e.touches[0].clientY : e.clientY;
         fab.style.right = "auto";
         fab.style.bottom = "auto";
-        fab.style.left = fabX + dx + "px";
-        fab.style.top = fabY + dy + "px";
-      }, { passive: false });
+        fab.style.left = (x - offsetX) + "px";
+        fab.style.top = (y - offsetY) + "px";
+        e.preventDefault();
+      }
 
-      fab.addEventListener("touchend", () => {
-        clearTimeout(longPressTimer);
-        if (dragging) {
-          dragging = false;
-          fab.classList.remove("dragging");
-          const rect = fab.getBoundingClientRect();
-          localStorage.setItem("fab-pos", JSON.stringify({ x: rect.left, y: rect.top }));
-        }
-      });
-
-      fab.addEventListener("touchcancel", () => {
-        clearTimeout(longPressTimer);
+      function end() {
+        if (!dragging) return;
         dragging = false;
-        fab.classList.remove("dragging");
-      });
+        const rect = fab.getBoundingClientRect();
+        localStorage.setItem("fab-pos", JSON.stringify({ x: rect.left, y: rect.top }));
+      }
+
+      fab.addEventListener("mousedown", start);
+      document.addEventListener("mousemove", move);
+      document.addEventListener("mouseup", end);
+
+      fab.addEventListener("touchstart", start, { passive: false });
+      document.addEventListener("touchmove", move, { passive: false });
+      document.addEventListener("touchend", end);
     })();
 
   </script>
