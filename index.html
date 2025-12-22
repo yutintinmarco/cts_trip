@@ -11,6 +11,20 @@
   <meta http-equiv="Expires" content="0" />
   <title>北海道行程</title>
   <style>
+
+    /* Top white mask to cover content during iOS overscroll (keep header hidden under white area) */
+    .top-mask {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: calc(env(safe-area-inset-top) + 44px);
+      background: rgba(245,245,247,0.92);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      z-index: 9999;
+      pointer-events: none;
+    }
     :root {
       --font-scale: 1;
     }
@@ -439,6 +453,8 @@
   <link rel="icon" type="image/png" href="assets/icon/trip_icon.png" />
 </head>
 <body>
+  <div class="top-mask" aria-hidden="true"></div>
+
   <div class="bg-fixed"></div>
   
   <div class="container">
