@@ -720,8 +720,8 @@ flex: 1;
     }
 
   
-    .fab-wrap {
-      position: fixed;
+    .fab-wrap.dragging {
+      opacity: 0.95;
     }
 
   </style>
@@ -1707,24 +1707,24 @@ contentsEl.appendChild(content);
     
     
     
-    // FAB click vs drag by movement threshold
+    // Move FAB wrapper so submenu follows
     (function () {
       const fab = document.getElementById("fab-toggle");
-      if (!fab) return;
+      const wrap = fab ? fab.closest(".fab-wrap") : null;
+      if (!fab || !wrap) return;
 
       let startX = 0, startY = 0;
       let offsetX = 0, offsetY = 0;
       let dragging = false;
-      let moved = false;
-      const THRESHOLD = 8; // px
+      const THRESHOLD = 8;
 
-      const saved = localStorage.getItem("fab-pos");
+      const saved = localStorage.getItem("fab-wrap-pos");
       if (saved) {
         const p = JSON.parse(saved);
-        fab.style.right = "auto";
-        fab.style.bottom = "auto";
-        fab.style.left = p.x + "px";
-        fab.style.top = p.y + "px";
+        wrap.style.right = "auto";
+        wrap.style.bottom = "auto";
+        wrap.style.left = (p.clientX - offsetX) + "px";
+        wrap.style.top = (p.clientY - offsetY) + "px";
       }
 
       function getPoint(e) {
@@ -1732,7 +1732,6 @@ contentsEl.appendChild(content);
         return e;
       }
 
-      
       function onStart(e) {
         const p = getPoint(e);
         const rect = wrap.getBoundingClientRect();
@@ -1742,7 +1741,6 @@ contentsEl.appendChild(content);
         offsetY = p.clientY - rect.top;
         dragging = false;
       }
-    
 
       function onMove(e) {
         const p = getPoint(e);
@@ -1752,19 +1750,17 @@ contentsEl.appendChild(content);
           dragging = true;
         }
         if (!dragging) return;
-
-        moved = true;
-        fab.style.right = "auto";
-        fab.style.bottom = "auto";
-        fab.style.left = (p.clientX - offsetX) + "px";
-        fab.style.top = (p.clientY - offsetY) + "px";
+        wrap.style.right = "auto";
+        wrap.style.bottom = "auto";
+        wrap.style.left = (p.clientX - offsetX) + "px";
+        wrap.style.top = (p.clientY - offsetY) + "px";
         e.preventDefault();
       }
 
       function onEnd() {
         if (dragging) {
-          const rect = fab.getBoundingClientRect();
-          localStorage.setItem("fab-pos", JSON.stringify({ x: rect.left, y: rect.top }));
+          const rect = wrap.getBoundingClientRect();
+          localStorage.setItem("fab-wrap-pos", JSON.stringify({ x: rect.left, y: rect.top }));
         }
         dragging = false;
       }
@@ -1779,51 +1775,51 @@ contentsEl.appendChild(content);
     })();
 
   
-    
-    // FAB drag with proper offset (no snapping)
+    // Robust FAB interaction: click to toggle menu, long-press (400ms) to drag
     (function () {
       const wrap = document.querySelector(".fab-wrap");
       const fab = document.getElementById("fab-toggle");
       if (!wrap || !fab) return;
 
+      let pressTimer = null;
+      let dragging = false;
       let startX = 0, startY = 0;
       let originLeft = 0, originTop = 0;
-      let dragging = false;
-      const THRESHOLD = 6;
 
       const saved = localStorage.getItem("fab-wrap-pos");
       if (saved) {
         const p = JSON.parse(saved);
-        wrap.style.right = "auto";
-        wrap.style.bottom = "auto";
         wrap.style.left = p.left + "px";
         wrap.style.top = p.top + "px";
+        wrap.style.right = "auto";
+        wrap.style.bottom = "auto";
       }
 
-      function point(e) {
+      function getPoint(e) {
         return e.touches ? e.touches[0] : e;
       }
 
-      function onDown(e) {
-        const p = point(e);
+      function startDrag(e) {
+        dragging = true;
         const rect = wrap.getBoundingClientRect();
+        const p = getPoint(e);
         startX = p.clientX;
         startY = p.clientY;
         originLeft = rect.left;
         originTop = rect.top;
-        dragging = false;
+        wrap.classList.add("dragging");
+      }
+
+      function onDown(e) {
+        // start long press timer
+        pressTimer = setTimeout(() => startDrag(e), 400);
       }
 
       function onMove(e) {
-        const p = point(e);
+        if (!dragging) return;
+        const p = getPoint(e);
         const dx = p.clientX - startX;
         const dy = p.clientY - startY;
-
-        if (!dragging) {
-          if (Math.hypot(dx, dy) < THRESHOLD) return;
-          dragging = true;
-        }
-
         wrap.style.left = (originLeft + dx) + "px";
         wrap.style.top = (originTop + dy) + "px";
         wrap.style.right = "auto";
@@ -1831,15 +1827,20 @@ contentsEl.appendChild(content);
         e.preventDefault();
       }
 
-      function onUp() {
+      function onUp(e) {
+        clearTimeout(pressTimer);
         if (dragging) {
+          dragging = false;
+          wrap.classList.remove("dragging");
           const rect = wrap.getBoundingClientRect();
           localStorage.setItem("fab-wrap-pos", JSON.stringify({
             left: rect.left,
             top: rect.top
           }));
+          // prevent click after drag
+          e.preventDefault();
+          e.stopPropagation();
         }
-        dragging = false;
       }
 
       fab.addEventListener("mousedown", onDown);
