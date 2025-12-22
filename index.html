@@ -483,35 +483,36 @@ flex: 1;
       padding-bottom: 220px; /* prevent content being covered by bottom toolbar */
     }
 
-    .bottom-band {
-      position: fixed;
-      left: 0;
-      right: 0;
-      bottom: calc(env(safe-area-inset-bottom) + 38px); /* about 1cm above bottom */
-      height: 78px;
-      background: rgba(245,245,247,0.92);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      border-top: 1px solid rgba(207,207,214,0.9);
-      box-shadow: 0 -10px 24px rgba(15,23,42,0.14);
-      z-index: 1190;
-      display: flex;
-      justify-content: center;
-      pointer-events: none;
+    .bottom-tab:active {
+      transform: translateY(1px);
     }
-
+  /* Bottom toolbar flush to bottom */
+    /* Fix toolbar height so buttons are fully inside the band */
+    /* No-band option: floating pill tabs */
+    .container {
+      padding-bottom: 140px; /* room for floating tabs */
+    }
     .bottom-tabs {
+      position: fixed;
+      left: 12px;
+      right: 12px;
+      bottom: calc(12px + env(safe-area-inset-bottom));
       width: calc(100% - 24px);
-      max-width: 720px; /* align to main content width */
+      max-width: 720px;
       margin: 0 auto;
-      padding: 14px 0 0 0;
+      padding: 10px;
       display: flex;
       gap: 12px;
       justify-content: center;
       align-items: center;
-      pointer-events: auto;
+      background: rgba(245,245,247,0.92);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(207,207,214,0.9);
+      border-radius: 22px;
+      box-shadow: 0 14px 30px rgba(15,23,42,0.18);
+      z-index: 1200;
     }
-
     .bottom-tab {
       flex: 1;
       min-width: 0;
@@ -524,16 +525,11 @@ flex: 1;
       border-radius: 18px;
       box-shadow: 0 10px 18px rgba(15,23,42,0.10);
     }
-
     .bottom-tab.active {
       background: rgba(17,17,17,0.88);
       color: #ffffff;
       border-color: rgba(17,17,17,0.88);
       box-shadow: 0 12px 22px rgba(15,23,42,0.18);
-    }
-
-    .bottom-tab:active {
-      transform: translateY(1px);
     }
   </style>
 <link rel="apple-touch-icon" href="assets/icon/trip_icon.png" />
@@ -625,12 +621,10 @@ flex: 1;
     </div>
   </div>
   
-    <div class="bottom-band" aria-hidden="false">
-<div class="bottom-tabs" role="tablist" aria-label="主選單">
+    <div class="bottom-tabs" role="tablist" aria-label="主選單">
       <button class="bottom-tab active" id="bt-itinerary" type="button">行程</button>
       <button class="bottom-tab" id="bt-snacks" type="button">小食</button>
     </div>
-</div>
 </div>
 
   <div class="modal-backdrop" id="detail-backdrop">
