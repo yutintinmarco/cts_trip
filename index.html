@@ -283,8 +283,7 @@
   display: flex;
   gap: 8px;
   margin: 16px 0 10px 0;
-  overflow-x: auto;
-  -webkit-overflow-scrolling: touch;
+  
   padding-bottom: 2px;
 }
 
@@ -455,6 +454,53 @@
       background: #f9f9fb;
       font-size: calc(12px * var(--font-scale));
     }
+  
+    /* Bottom sheet tabs */
+    .container {
+      padding-bottom: 86px; /* leave room for bottom tabs */
+    }
+    .bottom-tabs {
+      position: fixed;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      padding: 10px 12px calc(10px + env(safe-area-inset-bottom));
+      background: rgba(245,245,247,0.92);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-top: 1px solid #e5e5ea;
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+      z-index: 1200;
+    }
+    .bottom-tab {
+      flex: 0 0 auto;
+      min-width: 140px;
+      padding: 10px 0;
+      border-radius: 14px;
+      border: 1px solid #dadada;
+      background: #f8f8fa;
+      font-size: 13px;
+      color: #555555;
+      font-weight: 600;
+      box-shadow: 0 6px 14px rgba(15,23,42,0.08);
+    }
+    .bottom-tab.active {
+      background: #ffe58f;
+      border-color: #f5c542;
+      color: #111111;
+    }
+
+    /* Snacks list */
+    .snack-item .time {
+      width: 0;
+      display: none;
+    }
+    .snack-item {
+      padding: 10px 10px;
+    }
+
   </style>
 <link rel="apple-touch-icon" href="assets/icon/trip_icon.png" />
   <link rel="icon" type="image/png" href="assets/icon/trip_icon.png" />
@@ -523,15 +569,33 @@
       <div class="weather-days" id="weather-days"></div>
     </div>
 
-    <div class="day-tabs" id="day-tabs"></div>
+    <div id="itinerary-view">
+<div class="day-tabs" id="day-tabs"></div>
 
     <div id="day-contents"></div>
+</div>
+
+<div id="snacks-view" style="display:none;">
+  <div class="card">
+    <div class="weather-header">
+      <div class="weather-title">小食清單</div>
+      <div class="weather-updated" id="snacks-count"></div>
+    </div>
+    <div class="section-sub" style="margin-bottom:10px;">路過即食  不設時間  點擊可開啟地圖</div>
+    <div id="snacks-list"></div>
+  </div>
+</div>
 
     <div class="footer-note" id="footer-note">
       行程  天氣  日出日落  照片及地圖由 AI 協助整合  點擊酒店及景點可查看詳細資訊
     </div>
   </div>
-  </div>
+  
+    <div class="bottom-tabs" role="tablist" aria-label="主選單">
+      <button class="bottom-tab active" id="bt-itinerary" type="button">行程</button>
+      <button class="bottom-tab" id="bt-snacks" type="button">小食</button>
+    </div>
+</div>
 
   <div class="modal-backdrop" id="detail-backdrop">
     <div class="modal">
@@ -1359,8 +1423,97 @@ contentsEl.appendChild(content);
       });
 
       setupTimelineClickHandlers();
+      renderSnacks(data);
       updateTodayChipAndStatus(data);
     }
+
+    
+    // Bottom tabs: switch between itinerary and snacks
+    const btItinerary = document.getElementById("bt-itinerary");
+    const btSnacks = document.getElementById("bt-snacks");
+    const itineraryView = document.getElementById("itinerary-view");
+    const snacksView = document.getElementById("snacks-view");
+
+    function setBottomTab(active) {
+      if (!btItinerary || !btSnacks || !itineraryView || !snacksView) return;
+      if (active === "snacks") {
+        btItinerary.classList.remove("active");
+        btSnacks.classList.add("active");
+        itineraryView.style.display = "none";
+        snacksView.style.display = "block";
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      } else {
+        btSnacks.classList.remove("active");
+        btItinerary.classList.add("active");
+        snacksView.style.display = "none";
+        itineraryView.style.display = "block";
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      }
+    }
+
+    if (btItinerary) btItinerary.addEventListener("click", () => setBottomTab("itinerary"));
+    if (btSnacks) btSnacks.addEventListener("click", () => setBottomTab("snacks"));
+
+    function renderSnacks(data) {
+      const listEl = document.getElementById("snacks-list");
+      const countEl = document.getElementById("snacks-count");
+      if (!listEl) return;
+
+      const snacks = (data && data.snacks && Array.isArray(data.snacks.items)) ? data.snacks.items : [];
+      if (countEl) countEl.textContent = snacks.length ? ("共 " + snacks.length + " 項") : "";
+
+      listEl.innerHTML = "";
+
+      if (!snacks.length) {
+        const empty = document.createElement("div");
+        empty.style.fontSize = "12px";
+        empty.style.color = "#777777";
+        empty.textContent = "未有小食清單  之後加入店名及地圖連結即可。";
+        listEl.appendChild(empty);
+        return;
+      }
+
+      snacks.forEach(s => {
+        const itemEl = document.createElement("div");
+        itemEl.className = "timeline-item snack-item" + (s.popup ? " clickable" : " clickable");
+        itemEl.setAttribute("data-title", s.title || "");
+        itemEl.setAttribute("data-time", (s.area ? s.area : "") + (s.category ? ("  " + s.category) : ""));
+        const detailLines = [];
+        if (s.must) detailLines.push("必點  " + s.must);
+        if (s.note) detailLines.push(s.note);
+        if (s.opening) detailLines.push("營業  " + s.opening);
+        itemEl.setAttribute("data-detail-lines", JSON.stringify(detailLines.length ? detailLines : ["點擊地圖前往"]));
+        itemEl.setAttribute("data-maps", s.maps || "");
+        if (s.gallery) itemEl.setAttribute("data-gallery", s.gallery);
+
+        const iconEl = document.createElement("div");
+        iconEl.className = "icon";
+        iconEl.textContent = "🍡";
+
+        const contentWrap = document.createElement("div");
+        contentWrap.className = "content";
+
+        const contentTitle = document.createElement("div");
+        contentTitle.className = "content-title";
+        contentTitle.textContent = s.title || "";
+
+        const contentNote = document.createElement("div");
+        contentNote.className = "content-note";
+        contentNote.textContent = (s.area ? (s.area + "  ") : "") + (s.category || "");
+
+        contentWrap.appendChild(contentTitle);
+        if (contentNote.textContent) contentWrap.appendChild(contentNote);
+
+        itemEl.appendChild(iconEl);
+        itemEl.appendChild(contentWrap);
+
+        listEl.appendChild(itemEl);
+      });
+
+      // Reuse existing modal click handlers
+      setupTimelineClickHandlers();
+    }
+
 
     fetch("trip_hokkaido.json")
       .then(r => r.json())
