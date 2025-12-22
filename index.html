@@ -691,6 +691,13 @@ flex: 1;
       touch-action: none;
     }
 
+  
+    .fab {
+      position: fixed;
+      touch-action: none;
+      cursor: pointer;
+    }
+
   </style>
 <link rel="apple-touch-icon" href="assets/icon/trip_icon.png" />
   <link rel="icon" type="image/png" href="assets/icon/trip_icon.png" />
@@ -1673,14 +1680,17 @@ contentsEl.appendChild(content);
   
     
     
-    // FAB simple drag (mouse + touch, no long-press)
+    
+    // FAB click vs drag by movement threshold
     (function () {
       const fab = document.getElementById("fab-toggle");
       if (!fab) return;
 
+      let startX = 0, startY = 0;
+      let offsetX = 0, offsetY = 0;
       let dragging = false;
-      let offsetX = 0;
-      let offsetY = 0;
+      let moved = false;
+      const THRESHOLD = 8; // px
 
       const saved = localStorage.getItem("fab-pos");
       if (saved) {
@@ -1691,41 +1701,54 @@ contentsEl.appendChild(content);
         fab.style.top = p.y + "px";
       }
 
-      function start(e) {
-        dragging = true;
-        const rect = fab.getBoundingClientRect();
-        const x = e.touches ? e.touches[0].clientX : e.clientX;
-        const y = e.touches ? e.touches[0].clientY : e.clientY;
-        offsetX = x - rect.left;
-        offsetY = y - rect.top;
-        e.preventDefault();
+      function getPoint(e) {
+        if (e.touches && e.touches[0]) return e.touches[0];
+        return e;
       }
 
-      function move(e) {
+      function onStart(e) {
+        const p = getPoint(e);
+        const rect = fab.getBoundingClientRect();
+        startX = p.clientX;
+        startY = p.clientY;
+        offsetX = p.clientX - rect.left;
+        offsetY = p.clientY - rect.top;
+        dragging = false;
+        moved = false;
+      }
+
+      function onMove(e) {
+        const p = getPoint(e);
+        const dx = p.clientX - startX;
+        const dy = p.clientY - startY;
+        if (!dragging && Math.hypot(dx, dy) >= THRESHOLD) {
+          dragging = true;
+        }
         if (!dragging) return;
-        const x = e.touches ? e.touches[0].clientX : e.clientX;
-        const y = e.touches ? e.touches[0].clientY : e.clientY;
+
+        moved = true;
         fab.style.right = "auto";
         fab.style.bottom = "auto";
-        fab.style.left = (x - offsetX) + "px";
-        fab.style.top = (y - offsetY) + "px";
+        fab.style.left = (p.clientX - offsetX) + "px";
+        fab.style.top = (p.clientY - offsetY) + "px";
         e.preventDefault();
       }
 
-      function end() {
-        if (!dragging) return;
+      function onEnd() {
+        if (dragging) {
+          const rect = fab.getBoundingClientRect();
+          localStorage.setItem("fab-pos", JSON.stringify({ x: rect.left, y: rect.top }));
+        }
         dragging = false;
-        const rect = fab.getBoundingClientRect();
-        localStorage.setItem("fab-pos", JSON.stringify({ x: rect.left, y: rect.top }));
       }
 
-      fab.addEventListener("mousedown", start);
-      document.addEventListener("mousemove", move);
-      document.addEventListener("mouseup", end);
+      fab.addEventListener("mousedown", onStart);
+      document.addEventListener("mousemove", onMove);
+      document.addEventListener("mouseup", onEnd);
 
-      fab.addEventListener("touchstart", start, { passive: false });
-      document.addEventListener("touchmove", move, { passive: false });
-      document.addEventListener("touchend", end);
+      fab.addEventListener("touchstart", onStart, { passive: true });
+      document.addEventListener("touchmove", onMove, { passive: false });
+      document.addEventListener("touchend", onEnd);
     })();
 
   </script>
