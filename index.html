@@ -42,11 +42,11 @@
       background: rgba(245,245,247,0.45);
     }
 
-    .container {
-      max-width: 480px;
+    .container {max-width: 480px;
       margin: 0 auto;
       padding: 16px 16px 40px 16px;
-    }
+      padding-bottom: 102px;
+}
     .header {
       margin-bottom: 10px;
     }
@@ -464,7 +464,7 @@
       left: 0;
       right: 0;
       bottom: 0;
-      padding: 10px 12px calc(10px + env(safe-area-inset-bottom));
+      Lpx 12px calc(14px + env(safe-area-inset-bottom));
       background: rgba(245,245,247,0.92);
       backdrop-filter: blur(14px);
       -webkit-backdrop-filter: blur(14px);
@@ -474,18 +474,18 @@
       justify-content: center;
       z-index: 1200;
     }
-    .bottom-tab {
-      flex: 0 0 auto;
-      min-width: 140px;
-      padding: 10px 0;
+    .bottom-tab {flex: 0 0 auto;
+      M2px;
+      Lpx 0;
       border-radius: 14px;
       border: 1px solid #dadada;
       background: #f8f8fa;
-      font-size: 13px;
+      Lpx;
       color: #555555;
       font-weight: 600;
       box-shadow: 0 6px 14px rgba(15,23,42,0.08);
-    }
+      min-height: 52px;
+}
     .bottom-tab.active {
       background: #ffe58f;
       border-color: #f5c542;
@@ -1320,90 +1320,6 @@ function getTokyoDateString() {
             content.appendChild(itemEl);
           });
         }
-
-        
-      // Snacks tab (independent list, not tied to a specific day)
-      const snacksTab = document.createElement("button");
-      snacksTab.className = "day-tab";
-      snacksTab.dataset.dayIndex = "snacks";
-      snacksTab.textContent = "🍡 小食";
-      tabsEl.appendChild(snacksTab);
-
-      const snacksContent = document.createElement("div");
-      snacksContent.className = "day-content";
-      snacksContent.dataset.dayIndex = "snacks";
-
-      const snacksTitleEl = document.createElement("div");
-      snacksTitleEl.className = "section-title";
-      snacksTitleEl.textContent = (data.snacks && data.snacks.title) ? data.snacks.title : "小食清單";
-      snacksContent.appendChild(snacksTitleEl);
-
-      const snacksSubEl = document.createElement("div");
-      snacksSubEl.className = "section-sub";
-      snacksSubEl.textContent = (data.snacks && data.snacks.subtitle) ? data.snacks.subtitle : "路過即食  不設時間";
-      snacksContent.appendChild(snacksSubEl);
-
-      const snacksItems = (data.snacks && Array.isArray(data.snacks.items)) ? data.snacks.items : [];
-      if (snacksItems.length) {
-        snacksItems.forEach(snack => {
-          const itemEl = document.createElement("div");
-          itemEl.className = "timeline-item clickable";
-          itemEl.setAttribute("data-title", snack.title || "");
-          const area = snack.area ? ("地區  " + snack.area) : "";
-          const category = snack.category ? ("類型  " + snack.category) : "";
-          const timeLabel = [area, category].filter(Boolean).join("  ·  ");
-          itemEl.setAttribute("data-time", timeLabel);
-
-          const lines = [];
-          if (snack.mustTry) lines.push("必點  " + snack.mustTry);
-          if (snack.note) lines.push(snack.note);
-          if (snack.hours) lines.push("時間  " + snack.hours);
-          if (snack.price) lines.push("預算  " + snack.price);
-          if (lines.length) itemEl.setAttribute("data-detail-lines", JSON.stringify(lines));
-          itemEl.setAttribute("data-detail", snack.note || "");
-          itemEl.setAttribute("data-maps", snack.maps || "");
-          if (snack.gallery) itemEl.setAttribute("data-gallery", snack.gallery);
-
-          const timeEl = document.createElement("div");
-          timeEl.className = "time";
-          timeEl.textContent = snack.area || "";
-
-          const iconEl = document.createElement("div");
-          iconEl.className = "icon";
-          iconEl.textContent = "🍡";
-
-          const contentWrap = document.createElement("div");
-          contentWrap.className = "content";
-
-          const contentTitle = document.createElement("div");
-          contentTitle.className = "content-title";
-          contentTitle.textContent = snack.title || "";
-
-          const contentNote = document.createElement("div");
-          contentNote.className = "content-note";
-          const noteParts = [];
-          if (snack.category) noteParts.push(snack.category);
-          if (snack.note) noteParts.push(snack.note);
-          contentNote.textContent = noteParts.join("  ·  ");
-
-          contentWrap.appendChild(contentTitle);
-          if (contentNote.textContent) contentWrap.appendChild(contentNote);
-
-          itemEl.appendChild(timeEl);
-          itemEl.appendChild(iconEl);
-          itemEl.appendChild(contentWrap);
-
-          snacksContent.appendChild(itemEl);
-        });
-      } else {
-        const empty = document.createElement("div");
-        empty.style.fontSize = "11px";
-        empty.style.color = "#777777";
-        empty.textContent = "未有小食清單  之後加入店名及地圖連結即可。";
-        snacksContent.appendChild(empty);
-      }
-
-      contentsEl.appendChild(snacksContent);
 contentsEl.appendChild(content);
       });
 
