@@ -24,14 +24,14 @@
     body {
       margin: 0;
       font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", system-ui, sans-serif;
-      background: rgba(245,245,247,0.80);
+      background: rgba(245,245,247,0.65);
       color: #111111;
       height: 100vh;
       overflow: hidden;
 }
 
     html {
-      background: rgba(245,245,247,0.80);
+      background: rgba(245,245,247,0.65);
     }
 
     .scroll-shell {
@@ -39,7 +39,7 @@
       overflow-y: auto;
       -webkit-overflow-scrolling: touch;
       padding-top: env(safe-area-inset-top);
-      overscroll-behavior: contain;
+      background: rgba(245,245,247,0.65);
     }
 
     .container {
@@ -471,8 +471,8 @@
           <div class="font-controls" aria-label="Font size controls">
             <button class="font-btn" id="font-smaller" type="button" aria-label="Smaller text">A−</button>
             <button class="font-btn" id="font-larger" type="button" aria-label="Larger text">A+</button>
-            <button class="refresh-btn" id="refresh-btn">⟳</button>
           </div>
+          <button class="refresh-btn" id="refresh-btn">⟳</button>
         </div>
       </div>
 
