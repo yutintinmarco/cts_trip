@@ -148,44 +148,84 @@
   ]
 },
     {
-      "label": "Day 3",
-      "date": "12月26日",
-      "title": "小樽一日遊",
-      "subtitle": "運河  音樂盒堂",
-      "isoDate": "2025-12-26",
-      "items": [
-        {
-          "time": "09:00",
-          "icon": "🚆",
-          "title": "前往小樽",
-          "note": "JR 由札幌站出發"
-        },
-        {
-          "time": "11:00",
-          "icon": "📸",
-          "title": "小樽運河",
-          "note": "雪景與歷史建築"
-        },
-        {
-          "time": "13:00",
-          "icon": "🍣",
-          "title": "午餐",
-          "note": "壽司街或海鮮丼"
-        },
-        {
-          "time": "15:30",
-          "icon": "🎶",
-          "title": "音樂盒堂",
-          "note": "自由參觀及購物"
-        },
-        {
-          "time": "18:00",
-          "icon": "🚆",
-          "title": "返回札幌",
-          "note": "晚間自由活動"
-        }
-      ]
+  "label": "Day 3",
+  "date": "12月26日",
+  "title": "小樽一日遊",
+  "subtitle": "札幌出發  小樽運河  音樂盒堂  LeTAO  夜返札幌燒肉",
+  "isoDate": "2025-12-26",
+  "items": [
+    {
+      "time": "10:30",
+      "icon": "🚆",
+      "title": "前往小樽",
+      "note": "札幌 → 小樽  約 35 分鐘",
+      "popup": true,
+      "detail": "函館本線 JR 10:30 出發  車程約 35 分鐘",
+      "maps": "https://www.google.com/maps/search/?api=1&query=JR%20%E6%9C%AD%E5%B9%8C%E9%A7%85",
+      "gallery": ""
     },
+    {
+      "time": "11:30",
+      "icon": "🍣",
+      "title": "壽司",
+      "note": "11:30 confirmed",
+      "popup": true,
+      "detail": "小樽壽司午餐  已確認  按預約時間到達",
+      "maps": "https://www.google.com/maps/search/?api=1&query=%E5%B0%8F%E6%A8%BD%20%E5%AF%BF%E5%8F%B8",
+      "gallery": ""
+    },
+    {
+      "time": "13:00",
+      "icon": "🛍️",
+      "title": "小樽堺町通商店街",
+      "note": "小樽運河一帶",
+      "popup": true,
+      "detail": "沿小樽運河散步  甜品  紀念品  拍照",
+      "maps": "https://www.google.com/maps/search/?api=1&query=%E5%A0%BA%E7%94%BA%E9%80%9A%E3%82%8A%20%E5%B0%8F%E6%A8%BD",
+      "gallery": "otaru_sakaimachi"
+    },
+    {
+      "time": "15:00",
+      "icon": "🎵",
+      "title": "小樽音樂盒堂本館",
+      "note": "經典景點",
+      "popup": true,
+      "detail": "小樽最具代表性景點  音樂盒參觀及購物",
+      "maps": "https://www.google.com/maps/search/?api=1&query=%E5%B0%8F%E6%A8%BD%E3%82%AA%E3%83%AB%E3%82%B4%E3%83%BC%E3%83%AB%E5%A0%82%20%E6%9C%AC%E9%A4%A8",
+      "gallery": "otaru_musicbox"
+    },
+    {
+      "time": "16:00",
+      "icon": "🧁",
+      "title": "LeTAO",
+      "note": "小樽名物甜品",
+      "popup": true,
+      "detail": "LeTAO 本店  芝士蛋糕  下午茶",
+      "maps": "https://www.google.com/maps/search/?api=1&query=LeTAO%20%E6%9C%AC%E5%BA%97%20%E5%B0%8F%E6%A8%BD",
+      "gallery": "letao"
+    },
+    {
+      "time": "18:00",
+      "icon": "🚆",
+      "title": "返回札幌",
+      "note": "小樽 → 札幌  約 35 分鐘",
+      "popup": true,
+      "detail": "函館本線 JR 18:00 出發",
+      "maps": "https://www.google.com/maps/search/?api=1&query=JR%20%E5%B0%8F%E6%A8%BD%E9%A7%85",
+      "gallery": ""
+    },
+    {
+      "time": "20:00",
+      "icon": "🥩",
+      "title": "燒肉 グルマンづいとう",
+      "note": "晚餐",
+      "popup": true,
+      "detail": "札幌燒肉晚餐  行完小樽後回復體力",
+      "maps": "https://www.google.com/maps/search/?api=1&query=%E3%82%B0%E3%83%AB%E3%83%9E%E3%83%B3%E3%81%A5%E3%81%84%E3%81%A8%E3%81%86%20%E6%9C%AD%E5%B9%8C",
+      "gallery": ""
+    }
+  ]
+},
     {
       "label": "Day 4",
       "date": "12月27日",
