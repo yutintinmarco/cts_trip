@@ -89,50 +89,50 @@
       ]
     },
     {
-      "label": "Day 2",
-      "date": "12月25日",
-      "title": "札幌市區",
-      "subtitle": "大通  時計台  白色燈樹",
-      "isoDate": "2025-12-25",
-      "items": [
-        {
-          "time": "09:00",
-          "icon": "🍳",
-          "title": "早餐",
-          "note": "酒店或札幌站周邊"
-        },
-        {
-          "time": "10:30",
-          "icon": "🏙️",
-          "title": "札幌時計台",
-          "note": "經典地標拍照",
-          "popup": true,
-          "detailLines": [
-            "市中心地標  行程彈性高",
-            "人流較多  留意路面結冰"
-          ],
-          "detail": "市中心地標，行程彈性高。冬季路面或結冰，人流多時注意腳下與隨身物品。"
-        },
-        {
-          "time": "12:00",
-          "icon": "🍜",
-          "title": "午餐",
-          "note": "拉麵共和國或市區餐廳"
-        },
-        {
-          "time": "15:00",
-          "icon": "🌲",
-          "title": "大通公園",
-          "note": "冬季雪景與市中心散步"
-        },
-        {
-          "time": "18:00",
-          "icon": "✨",
-          "title": "札幌白色燈樹",
-          "note": "聖誕期間限定夜景"
-        }
-      ]
+  "day": 2,
+  "date": "2025-12-25",
+  "title": "12月25日 札幌 美食＋購物",
+  "subtitle": "根室花まる 排隊壽司｜蟹本札幌 蟹食放題｜兩段Shopping",
+  "schedule": [
+    {
+      "time": "10:00",
+      "icon": "🎟️",
+      "title": "10點排位",
+      "detail": "為午市取號 建議提前到場",
+      "gallery": "nemuro"
     },
+    {
+      "time": "11:00",
+      "icon": "🍣",
+      "title": "回轉壽司 根室花まる",
+      "detail": "JRタワー ステラプレイス店",
+      "maps": "https://maps.app.goo.gl/grqsgj8HwDQVmvQPA",
+      "gallery": "nemuro"
+    },
+    {
+      "time": "15:00",
+      "icon": "🛍️",
+      "title": "Shopping",
+      "desc": "札幌站一帶 Stellar Place 及周邊",
+      "gallery": "sapporo_shopping"
+    },
+    {
+      "time": "18:00",
+      "icon": "🦀",
+      "title": "蟹食放題 蟹本札幌",
+      "detail": "晚餐 建議準時",
+      "website": "https://maps.app.goo.gl/PNgN6eNayhBCCXXD9",
+      "gallery": "kanihon"
+    },
+    {
+      "time": "21:00",
+      "icon": "🛍️",
+      "title": "Shopping",
+      "detail": "夜晚再行街 彈性時間",
+      "gallery": "sapporo_shopping_night"
+    }
+  ]
+},
     {
       "label": "Day 3",
       "date": "12月26日",
