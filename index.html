@@ -576,6 +576,8 @@ flex: 1;
       font-size: 18px;
       font-weight: 800;
       color: #111111;
+    
+      touch-action: manipulation;
     }
     .fab:active { transform: translateY(1px); }
 
@@ -724,6 +726,20 @@ flex: 1;
       opacity: 0.95;
     }
 
+  
+    /* FAB: stable centered emoji */
+    .fab {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      line-height: 1;
+      font-size: 18px;
+    }
+    .fab-emoji {
+      display: block;
+      transform: translateY(0px);
+    }
+
   </style>
 <link rel="apple-touch-icon" href="assets/icon/trip_icon.png" />
   <link rel="icon" type="image/png" href="assets/icon/trip_icon.png" />
@@ -816,12 +832,7 @@ flex: 1;
   
     
     <div class="fab-wrap" aria-label="快速切換">
-      <button class="fab" id="fab-toggle" type="button" aria-expanded="false" aria-controls="fab-menu">
-  <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true">
-    <path d="M19.14 12.94c.04-.31.06-.63.06-.94s-.02-.63-.06-.94l2.03-1.58a.5.5 0 0 0 .12-.64l-1.92-3.32a.5.5 0 0 0-.6-.22l-2.39.96a7.03 7.03 0 0 0-1.63-.94l-.36-2.54A.5.5 0 0 0 13.9 1h-3.8a.5.5 0 0 0-.49.42l-.36 2.54c-.58.23-1.12.54-1.63.94l-2.39-.96a.5.5 0 0 0-.6.22L2.7 7.98a.5.5 0 0 0 .12.64l2.03 1.58c-.04.31-.06.63-.06.94s.02.63.06.94L2.82 13.66a.5.5 0 0 0-.12.64l1.92 3.32c.13.22.39.31.6.22l2.39-.96c.5.39 1.05.71 1.63.94l.36 2.54c.04.24.25.42.49.42h3.8c.24 0 .45-.18.49-.42l.36-2.54c.58-.23 1.12-.54 1.63-.94l2.39.96c.22.09.47 0 .6-.22l1.92-3.32a.5.5 0 0 0-.12-.64l-2.03-1.58zM12 15.5A3.5 3.5 0 1 1 12 8a3.5 3.5 0 0 1 0 7.5z"
-          fill="currentColor"/>
-  </svg>
-</button>
+      <button class="fab" id="fab-toggle" type="button" aria-expanded="false" aria-controls="fab-menu"><span class="fab-emoji" aria-hidden="true">⚙️</span></button>
       <div class="fab-menu" id="fab-menu" role="menu" aria-hidden="true">
         <button class="fab-item active" id="bt-itinerary" type="button" role="menuitem">🗓️</button>
         <button class="fab-item" id="bt-snacks" type="button" role="menuitem">🍡</button>
@@ -1773,86 +1784,7 @@ contentsEl.appendChild(content);
       document.addEventListener("touchmove", onMove, { passive: false });
       document.addEventListener("touchend", onEnd);
     })();
-
-  
-    // Robust FAB interaction: click to toggle menu, long-press (400ms) to drag
-    (function () {
-      const wrap = document.querySelector(".fab-wrap");
-      const fab = document.getElementById("fab-toggle");
-      if (!wrap || !fab) return;
-
-      let pressTimer = null;
-      let dragging = false;
-      let startX = 0, startY = 0;
-      let originLeft = 0, originTop = 0;
-
-      const saved = localStorage.getItem("fab-wrap-pos");
-      if (saved) {
-        const p = JSON.parse(saved);
-        wrap.style.left = p.left + "px";
-        wrap.style.top = p.top + "px";
-        wrap.style.right = "auto";
-        wrap.style.bottom = "auto";
-      }
-
-      function getPoint(e) {
-        return e.touches ? e.touches[0] : e;
-      }
-
-      function startDrag(e) {
-        dragging = true;
-        const rect = wrap.getBoundingClientRect();
-        const p = getPoint(e);
-        startX = p.clientX;
-        startY = p.clientY;
-        originLeft = rect.left;
-        originTop = rect.top;
-        wrap.classList.add("dragging");
-      }
-
-      function onDown(e) {
-        // start long press timer
-        pressTimer = setTimeout(() => startDrag(e), 400);
-      }
-
-      function onMove(e) {
-        if (!dragging) return;
-        const p = getPoint(e);
-        const dx = p.clientX - startX;
-        const dy = p.clientY - startY;
-        wrap.style.left = (originLeft + dx) + "px";
-        wrap.style.top = (originTop + dy) + "px";
-        wrap.style.right = "auto";
-        wrap.style.bottom = "auto";
-        e.preventDefault();
-      }
-
-      function onUp(e) {
-        clearTimeout(pressTimer);
-        if (dragging) {
-          dragging = false;
-          wrap.classList.remove("dragging");
-          const rect = wrap.getBoundingClientRect();
-          localStorage.setItem("fab-wrap-pos", JSON.stringify({
-            left: rect.left,
-            top: rect.top
-          }));
-          // prevent click after drag
-          e.preventDefault();
-          e.stopPropagation();
-        }
-      }
-
-      fab.addEventListener("mousedown", onDown);
-      document.addEventListener("mousemove", onMove);
-      document.addEventListener("mouseup", onUp);
-
-      fab.addEventListener("touchstart", onDown, { passive: true });
-      document.addEventListener("touchmove", onMove, { passive: false });
-      document.addEventListener("touchend", onUp);
-    })();
-
-  </script>
+</script>
 </body>
 </html>
 
