@@ -698,6 +698,20 @@ flex: 1;
       cursor: pointer;
     }
 
+  
+    /* Make submenu follow FAB */
+    .fab-wrap {
+      position: fixed;
+      right: 16px;
+      bottom: calc(16px + env(safe-area-inset-bottom));
+      z-index: 1400;
+    }
+    .fab-menu {
+      position: absolute;
+      right: 0;
+      bottom: 48px; /* above the FAB */
+    }
+
   </style>
 <link rel="apple-touch-icon" href="assets/icon/trip_icon.png" />
   <link rel="icon" type="image/png" href="assets/icon/trip_icon.png" />
@@ -1738,6 +1752,74 @@ contentsEl.appendChild(content);
         if (dragging) {
           const rect = fab.getBoundingClientRect();
           localStorage.setItem("fab-pos", JSON.stringify({ x: rect.left, y: rect.top }));
+        }
+        dragging = false;
+      }
+
+      fab.addEventListener("mousedown", onStart);
+      document.addEventListener("mousemove", onMove);
+      document.addEventListener("mouseup", onEnd);
+
+      fab.addEventListener("touchstart", onStart, { passive: true });
+      document.addEventListener("touchmove", onMove, { passive: false });
+      document.addEventListener("touchend", onEnd);
+    })();
+
+  
+    // Move FAB wrapper so submenu follows
+    (function () {
+      const fab = document.getElementById("fab-toggle");
+      const wrap = fab ? fab.closest(".fab-wrap") : null;
+      if (!fab || !wrap) return;
+
+      let startX = 0, startY = 0;
+      let offsetX = 0, offsetY = 0;
+      let dragging = false;
+      const THRESHOLD = 8;
+
+      const saved = localStorage.getItem("fab-wrap-pos");
+      if (saved) {
+        const p = JSON.parse(saved);
+        wrap.style.right = "auto";
+        wrap.style.bottom = "auto";
+        wrap.style.left = p.x + "px";
+        wrap.style.top = p.y + "px";
+      }
+
+      function getPoint(e) {
+        if (e.touches && e.touches[0]) return e.touches[0];
+        return e;
+      }
+
+      function onStart(e) {
+        const p = getPoint(e);
+        const rect = wrap.getBoundingClientRect();
+        startX = p.clientX;
+        startY = p.clientY;
+        offsetX = p.clientX - rect.left;
+        offsetY = p.clientY - rect.top;
+        dragging = false;
+      }
+
+      function onMove(e) {
+        const p = getPoint(e);
+        const dx = p.clientX - startX;
+        const dy = p.clientY - startY;
+        if (!dragging && Math.hypot(dx, dy) >= THRESHOLD) {
+          dragging = true;
+        }
+        if (!dragging) return;
+        wrap.style.right = "auto";
+        wrap.style.bottom = "auto";
+        wrap.style.left = (p.clientX - offsetX) + "px";
+        wrap.style.top = (p.clientY - offsetY) + "px";
+        e.preventDefault();
+      }
+
+      function onEnd() {
+        if (dragging) {
+          const rect = wrap.getBoundingClientRect();
+          localStorage.setItem("fab-wrap-pos", JSON.stringify({ x: rect.left, y: rect.top }));
         }
         dragging = false;
       }
