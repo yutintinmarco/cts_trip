@@ -712,6 +712,18 @@ flex: 1;
       bottom: 48px; /* above the FAB */
     }
 
+  
+    /* Submenu positioning closer to FAB */
+    .fab-menu {
+      bottom: 46px; /* closer above the FAB */
+      right: 0;
+    }
+
+  
+    .fab-wrap {
+      position: fixed;
+    }
+
   </style>
 <link rel="apple-touch-icon" href="assets/icon/trip_icon.png" />
   <link rel="icon" type="image/png" href="assets/icon/trip_icon.png" />
@@ -1720,16 +1732,17 @@ contentsEl.appendChild(content);
         return e;
       }
 
+      
       function onStart(e) {
         const p = getPoint(e);
-        const rect = fab.getBoundingClientRect();
+        const rect = wrap.getBoundingClientRect();
         startX = p.clientX;
         startY = p.clientY;
         offsetX = p.clientX - rect.left;
         offsetY = p.clientY - rect.top;
         dragging = false;
-        moved = false;
       }
+    
 
       function onMove(e) {
         const p = getPoint(e);
@@ -1766,71 +1779,76 @@ contentsEl.appendChild(content);
     })();
 
   
-    // Move FAB wrapper so submenu follows
+    
+    // FAB drag with proper offset (no snapping)
     (function () {
+      const wrap = document.querySelector(".fab-wrap");
       const fab = document.getElementById("fab-toggle");
-      const wrap = fab ? fab.closest(".fab-wrap") : null;
-      if (!fab || !wrap) return;
+      if (!wrap || !fab) return;
 
       let startX = 0, startY = 0;
-      let offsetX = 0, offsetY = 0;
+      let originLeft = 0, originTop = 0;
       let dragging = false;
-      const THRESHOLD = 8;
+      const THRESHOLD = 6;
 
       const saved = localStorage.getItem("fab-wrap-pos");
       if (saved) {
         const p = JSON.parse(saved);
         wrap.style.right = "auto";
         wrap.style.bottom = "auto";
-        wrap.style.left = p.x + "px";
-        wrap.style.top = p.y + "px";
+        wrap.style.left = p.left + "px";
+        wrap.style.top = p.top + "px";
       }
 
-      function getPoint(e) {
-        if (e.touches && e.touches[0]) return e.touches[0];
-        return e;
+      function point(e) {
+        return e.touches ? e.touches[0] : e;
       }
 
-      function onStart(e) {
-        const p = getPoint(e);
+      function onDown(e) {
+        const p = point(e);
         const rect = wrap.getBoundingClientRect();
         startX = p.clientX;
         startY = p.clientY;
-        offsetX = p.clientX - rect.left;
-        offsetY = p.clientY - rect.top;
+        originLeft = rect.left;
+        originTop = rect.top;
         dragging = false;
       }
 
       function onMove(e) {
-        const p = getPoint(e);
+        const p = point(e);
         const dx = p.clientX - startX;
         const dy = p.clientY - startY;
-        if (!dragging && Math.hypot(dx, dy) >= THRESHOLD) {
+
+        if (!dragging) {
+          if (Math.hypot(dx, dy) < THRESHOLD) return;
           dragging = true;
         }
-        if (!dragging) return;
+
+        wrap.style.left = (originLeft + dx) + "px";
+        wrap.style.top = (originTop + dy) + "px";
         wrap.style.right = "auto";
         wrap.style.bottom = "auto";
-        wrap.style.left = (p.clientX - offsetX) + "px";
-        wrap.style.top = (p.clientY - offsetY) + "px";
         e.preventDefault();
       }
 
-      function onEnd() {
+      function onUp() {
         if (dragging) {
           const rect = wrap.getBoundingClientRect();
-          localStorage.setItem("fab-wrap-pos", JSON.stringify({ x: rect.left, y: rect.top }));
+          localStorage.setItem("fab-wrap-pos", JSON.stringify({
+            left: rect.left,
+            top: rect.top
+          }));
         }
         dragging = false;
       }
 
-      fab.addEventListener("mousedown", onStart);
+      fab.addEventListener("mousedown", onDown);
       document.addEventListener("mousemove", onMove);
-      document.addEventListener("mouseup", onEnd);
+      document.addEventListener("mouseup", onUp);
 
-      fab.addEventListener("touchstart", onStart, { passive: true });
+      fab.addEventListener("touchstart", onDown, { passive: true });
       document.addEventListener("touchmove", onMove, { passive: false });
-      document.addEventListener("touchend", onEnd);
+      document.addEventListener("touchend", onUp);
     })();
 
   </script>
