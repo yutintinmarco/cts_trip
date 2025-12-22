@@ -44,9 +44,7 @@
 
     .container {max-width: 480px;
       margin: 0 auto;
-      padding: 16px 16px 40px 16px;
-
-      padding-bottom: 110px;
+      padding: 16px 16px 40px 16px;M0px;
 }
     .header {
       margin-bottom: 10px;
@@ -456,43 +454,6 @@ flex: 1;
     .container {
       padding-bottom: 86px; /* leave room for bottom tabs */
     }
-    .bottom-tabs {
-      position: fixed;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      Lpx 12px calc(14px + env(safe-area-inset-bottom));
-      background: rgba(245,245,247,0.92);
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
-      border-top: 1px solid #e5e5ea;
-      display: flex;
-      gap: 10px;
-      justify-content: center;
-      z-index: 1200;
-    }
-    .bottom-tab {flex: 0 0 auto;
-      M2px;
-      Lpx 0;
-      border-radius: 14px;
-      border: 1px solid #dadada;
-      background: #f8f8fa;
-      Lpx;
-      color: #555555;
-      font-weight: 600;
-      box-shadow: 0 6px 14px rgba(15,23,42,0.08);
-
-      min-height: 56px;
-      padding: 16px 0;
-      font-size: 15px;
-      min-width: 160px;
-}
-    .bottom-tab.active {
-      background: #ffe58f;
-      border-color: #f5c542;
-      color: #111111;
-    }
-
     /* Snacks list */
     .snack-item .time {
       width: 0;
@@ -502,6 +463,62 @@ flex: 1;
       padding: 10px 10px;
     }
 
+  
+/* Bottom sheet tabs - Excel style */
+    .container {
+      padding-bottom: 150px; /* leave room for floating tabs */
+    }
+    .bottom-tabs {
+      position: fixed;
+      left: 12px;
+      right: 12px;
+      bottom: calc(env(safe-area-inset-bottom) + 38px); /* about 1cm above bottom */
+      display: flex;
+      gap: 8px;
+      justify-content: flex-start;
+      align-items: flex-end;
+      background: transparent;
+      z-index: 1200;
+      pointer-events: auto;
+    }
+    .bottom-tab {
+      appearance: none;
+      border: 1px solid #cfcfd6;
+      border-bottom: 0;
+      background: rgba(245,245,247,0.85);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      color: #555555;
+      font-weight: 600;
+      font-size: 14px;
+      padding: 12px 18px 10px 18px;
+      min-width: 120px;
+      border-top-left-radius: 14px;
+      border-top-right-radius: 14px;
+      border-bottom-left-radius: 8px;
+      border-bottom-right-radius: 8px;
+      box-shadow: 0 10px 22px rgba(15,23,42,0.12);
+    }
+    .bottom-tab.active {
+      background: rgba(255,255,255,0.96);
+      color: #111111;
+      border-color: #bdbdc7;
+      box-shadow: 0 12px 26px rgba(15,23,42,0.16);
+    }
+    .bottom-tab:active {
+      transform: translateY(1px);
+    }
+    /* Optional baseline like a sheet edge */
+    .bottom-tabs::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: -1px;
+      height: 1px;
+      background: rgba(207,207,214,0.9);
+      z-index: -1;
+    }
   </style>
 <link rel="apple-touch-icon" href="assets/icon/trip_icon.png" />
   <link rel="icon" type="image/png" href="assets/icon/trip_icon.png" />
