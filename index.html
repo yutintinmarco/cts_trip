@@ -519,6 +519,59 @@ flex: 1;
       background: rgba(207,207,214,0.9);
       z-index: -1;
     }
+  /* Bottom band to anchor Excel-like tabs and prevent content overlap */
+    .container {
+      padding-bottom: 170px; /* room for band + tabs */
+    }
+    .bottom-band {
+      position: fixed;
+      left: 0;
+      right: 0;
+      bottom: calc(env(safe-area-inset-bottom) + 38px); /* about 1cm above bottom */
+      height: 64px;
+      background: rgba(245,245,247,0.92);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-top: 1px solid rgba(207,207,214,0.9);
+      z-index: 1190;
+      display: flex;
+      justify-content: center; /* align with container */
+      pointer-events: none; /* let inner tabs handle clicks */
+    }
+    .bottom-tabs {
+      width: 100%;
+      max-width: 420px; /* same visual width as main container on mobile */
+      margin: 0 auto;
+      padding: 12px 12px 0 12px;
+      display: flex;
+      gap: 8px;
+      justify-content: flex-start;
+      align-items: flex-end;
+      background: transparent;
+      pointer-events: auto;
+      position: relative;
+    }
+    .bottom-tab {
+      background: rgba(255,255,255,0.88);
+    }
+    .bottom-tab.active {
+      background: rgba(255,255,255,0.98);
+    }
+    /* remove old baseline if any */
+    .bottom-tabs::after { display: none !important; }
+  /* Full-width sheet tabs aligned to container width */
+    .bottom-tabs {
+      width: calc(100% - 24px);
+      max-width: 720px; /* match container max width */
+      padding: 12px 0 0 0;
+    }
+    .bottom-tab {
+      flex: 1;
+      min-width: 0;
+      text-align: center;
+      font-size: 15px;
+      padding: 14px 0 12px 0;
+    }
   </style>
 <link rel="apple-touch-icon" href="assets/icon/trip_icon.png" />
   <link rel="icon" type="image/png" href="assets/icon/trip_icon.png" />
@@ -609,10 +662,12 @@ flex: 1;
     </div>
   </div>
   
-    <div class="bottom-tabs" role="tablist" aria-label="主選單">
+    <div class="bottom-band" aria-hidden="false">
+<div class="bottom-tabs" role="tablist" aria-label="主選單">
       <button class="bottom-tab active" id="bt-itinerary" type="button">行程</button>
       <button class="bottom-tab" id="bt-snacks" type="button">小食</button>
     </div>
+</div>
 </div>
 
   <div class="modal-backdrop" id="detail-backdrop">
