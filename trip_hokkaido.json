@@ -113,7 +113,7 @@
       "time": "15:00",
       "icon": "🛍️",
       "title": "Shopping",
-      "desc": "札幌站一帶 Stellar Place 及周邊",
+      "detail": "札幌站一帶 Stellar Place 及周邊",
       "gallery": "sapporo_shopping"
     },
     {
@@ -121,7 +121,7 @@
       "icon": "🦀",
       "title": "蟹食放題 蟹本札幌",
       "detail": "晚餐 建議準時",
-      "website": "https://maps.app.goo.gl/PNgN6eNayhBCCXXD9",
+      "maps": "https://maps.app.goo.gl/PNgN6eNayhBCCXXD9",
       "gallery": "kanihon"
     },
     {
