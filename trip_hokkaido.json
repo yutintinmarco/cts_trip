@@ -315,32 +315,64 @@
   ]
 },
     {
-      "label": "Day 6",
-      "date": "12月29日",
-      "title": "回程",
-      "subtitle": "Check out JR Inn Sapporo",
-      "isoDate": "2025-12-29",
-      "items": [
-        {
-          "time": "上午",
-          "icon": "🧾",
-          "title": "退房 JR Inn Sapporo",
-          "note": "確認證件  退稅單據  戰利品"
-        },
-        {
-          "time": "15:30",
-          "icon": "🚆",
-          "title": "前往新千歲機場",
-          "note": "JR 由札幌站出發  預留足夠時間"
-        },
-        {
-          "time": "19:00",
-          "icon": "✈️",
-          "title": "回程航班 CX587",
-          "note": "新千歲返回香港  19:00 至 23:55"
-        }
-      ]
+  "label": "Day 6",
+  "date": "12月29日",
+  "title": "回程日",
+  "subtitle": "Check out  Hokudai Marche Café & Labo  前往機場  機場Shopping  CX587 返香港",
+  "isoDate": "2025-12-29",
+  "items": [
+    {
+      "time": "09:00",
+      "icon": "🧳",
+      "title": "Check out",
+      "note": "JR Inn Sapporo",
+      "popup": true,
+      "detail": "退房  行李可先寄存  視乎安排再出發",
+      "maps": "https://www.google.com/maps/search/?api=1&query=JR%20Inn%20Sapporo",
+      "gallery": ""
+    },
+    {
+      "time": "10:00",
+      "icon": "☕️",
+      "title": "Hokudai Marche Café & Labo",
+      "note": "咖啡＋輕食",
+      "popup": true,
+      "detail": "回程前輕鬆食個 brunch  休息一下再去機場",
+      "maps": "https://www.google.com/maps/search/?api=1&query=Hokudai%20Marche%20Caf%C3%A9%20%26%20Labo%20Sapporo",
+      "gallery": ""
+    },
+    {
+      "time": "12:00",
+      "icon": "🚆",
+      "title": "前往新千歲機場",
+      "note": "札幌 → CTS",
+      "popup": true,
+      "detail": "建議預留充足時間  交通＋安檢＋退稅＋購物",
+      "maps": "https://www.google.com/maps/search/?api=1&query=New%20Chitose%20Airport",
+      "gallery": ""
+    },
+    {
+      "time": "15:00",
+      "icon": "🛍️",
+      "title": "機場 Shopping",
+      "note": "新千歲機場",
+      "popup": true,
+      "detail": "伴手禮  食品  免稅店  最後補貨",
+      "maps": "https://www.google.com/maps/search/?api=1&query=New%20Chitose%20Airport%20shopping",
+      "gallery": ""
+    },
+    {
+      "time": "19:00",
+      "icon": "✈️",
+      "title": "CTS → HKG 回程",
+      "note": "CX587 19:00–23:55",
+      "popup": true,
+      "detail": "準時登機  祝你安全返到香港",
+      "maps": "https://www.google.com/maps/search/?api=1&query=New%20Chitose%20Airport%20International%20Terminal",
+      "gallery": ""
     }
+  ]
+}
   ],
   "snacks": {
     "title": "小食清單",
