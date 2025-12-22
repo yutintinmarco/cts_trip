@@ -229,18 +229,79 @@
     {
   "label": "Day 4",
   "date": "12月27日",
-  "title": "札幌市內 Local Tour",
-  "subtitle": "慢活札幌  市內 Local tour  晚上拉麵",
+  "title": "登別・洞爺湖 Local Tour",
+  "subtitle": "地獄谷  昭和新山  有珠山  熊牧場  洞爺湖  Snow World Toya",
   "isoDate": "2025-12-27",
   "items": [
     {
-      "time": "13:00",
-      "icon": "🗺️",
-      "title": "Local tour",
-      "note": "札幌市內",
+      "time": "07:50",
+      "icon": "🚌",
+      "title": "集合出發",
+      "note": "Klook Local Tour 去程",
       "popup": true,
-      "detail": "札幌市內 Local tour  行程彈性  視乎當日天氣及狀況調整",
-      "maps": "https://www.google.com/maps/search/?api=1&query=Sapporo%20city",
+      "detail": "早上集合後乘坐旅遊巴出發，實際集合地點及安排以 Klook 通知為準。",
+      "website": "https://www.klook.com/zh-TW/experiences/booking_detail/?guid=5401831099&bookingNo=AQH619875&sub_category_id=2",
+      "maps": "https://www.google.com/maps/search/?api=1&query=Sapporo%20Station",
+      "gallery": ""
+    },
+    {
+      "time": "09:50",
+      "icon": "🌋",
+      "title": "登別地獄谷",
+      "note": "停留約 40 分鐘",
+      "popup": true,
+      "detail": "登別代表景點，火山地形及地熱景觀，沿步道自由參觀拍照。",
+      "maps": "https://www.google.com/maps/search/?api=1&query=Noboribetsu%20Jigokudani",
+      "gallery": ""
+    },
+    {
+      "time": "11:30",
+      "icon": "⛰️",
+      "title": "昭和新山",
+      "note": "停留約 100 分鐘（含自費活動）",
+      "popup": true,
+      "detail": "參觀昭和新山及周邊景點，可選擇自費項目：有珠山纜車（約 2000 日圓／人）或熊牧場（約 1000 日圓／人）。",
+      "maps": "https://www.google.com/maps/search/?api=1&query=Showa%20Shinzan",
+      "gallery": ""
+    },
+    {
+      "time": "13:10",
+      "icon": "🚢",
+      "title": "洞爺湖湖畔",
+      "note": "停留約 20 分鐘",
+      "popup": true,
+      "detail": "洞爺湖湖畔拍照留念，可遠眺湖景及周邊山景。",
+      "maps": "https://www.google.com/maps/search/?api=1&query=Lake%20Toya",
+      "gallery": ""
+    },
+    {
+      "time": "13:40",
+      "icon": "🐑",
+      "title": "Lake Hill Farm（遠觀羊蹄山）",
+      "note": "停留約 20 分鐘",
+      "popup": true,
+      "detail": "甜品農場停留，天氣好可遠望「北海道富士山」羊蹄山。",
+      "maps": "https://www.google.com/maps/search/?api=1&query=Lake%20Hill%20Farm",
+      "gallery": ""
+    },
+    {
+      "time": "14:15",
+      "icon": "❄️",
+      "title": "洞爺湖展望台・Snow World Toya",
+      "note": "停留約 1 小時 10 分鐘",
+      "popup": true,
+      "detail": "冬季限定體驗。洞爺湖展望台約 20 分鐘；Snow World Toya 約 50 分鐘，可自費體驗雪地電單車等活動。若無滑雪日期，則只於展望台活動約 30 分鐘。",
+      "maps": "https://www.google.com/maps/search/?api=1&query=Snow%20World%20Toya",
+      "gallery": ""
+    },
+    {
+      "time": "18:00",
+      "icon": "🚌",
+      "title": "返回札幌",
+      "note": "Klook Local Tour 回程",
+      "popup": true,
+      "detail": "行程結束後乘坐旅遊巴返回札幌，實際抵達時間或因交通及天氣調整。",
+      "maps": "https://www.google.com/maps/search/?api=1&query=Sapporo%20Station",
       "gallery": ""
     },
     {
