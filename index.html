@@ -668,6 +668,18 @@ flex: 1;
       touch-action: none;
     }
 
+  
+    /* Ensure icons perfectly centered inside circular menu buttons */
+    .fab-item {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .fab-item svg,
+    .fab-item span {
+      display: block;
+    }
+
   </style>
 <link rel="apple-touch-icon" href="assets/icon/trip_icon.png" />
   <link rel="icon" type="image/png" href="assets/icon/trip_icon.png" />
@@ -1577,59 +1589,6 @@ contentsEl.appendChild(content);
     document.addEventListener("scroll", () => closeFabMenu(), { passive: true });
 
     
-    // Draggable FAB
-    (function () {
-      const fab = document.getElementById("fab-toggle");
-      if (!fab) return;
-
-      let isDragging = false;
-      let startX = 0, startY = 0;
-      let fabX = 0, fabY = 0;
-
-      const saved = localStorage.getItem("fab-pos");
-      if (saved) {
-        const p = JSON.parse(saved);
-        fab.style.right = "auto";
-        fab.style.bottom = "auto";
-        fab.style.left = p.x + "px";
-        fab.style.top = p.y + "px";
-      }
-
-      function onPointerDown(e) {
-        isDragging = true;
-        startX = e.clientX;
-        startY = e.clientY;
-        const rect = fab.getBoundingClientRect();
-        fabX = rect.left;
-        fabY = rect.top;
-        fab.setPointerCapture(e.pointerId);
-      }
-
-      function onPointerMove(e) {
-        if (!isDragging) return;
-        const dx = e.clientX - startX;
-        const dy = e.clientY - startY;
-        fab.style.right = "auto";
-        fab.style.bottom = "auto";
-        fab.style.left = fabX + dx + "px";
-        fab.style.top = fabY + dy + "px";
-      }
-
-      function onPointerUp(e) {
-        if (!isDragging) return;
-        isDragging = false;
-        fab.releasePointerCapture(e.pointerId);
-        const rect = fab.getBoundingClientRect();
-        localStorage.setItem("fab-pos", JSON.stringify({ x: rect.left, y: rect.top }));
-      }
-
-      fab.addEventListener("pointerdown", onPointerDown);
-      fab.addEventListener("pointermove", onPointerMove);
-      fab.addEventListener("pointerup", onPointerUp);
-      fab.addEventListener("pointercancel", onPointerUp);
-    })();
-
-
     function renderSnacks(data) {
       const listEl = document.getElementById("snacks-list");
       const countEl = document.getElementById("snacks-count");
@@ -1700,6 +1659,66 @@ contentsEl.appendChild(content);
         const chip = document.getElementById("today-chip");
         if (chip) chip.textContent = "無法載入行程資料";
       });
+  
+    // FAB: distinguish tap vs long-press drag (iOS-friendly)
+    (function () {
+      const fab = document.getElementById("fab-toggle");
+      if (!fab) return;
+
+      let pressTimer = null;
+      let dragging = false;
+      let startX = 0, startY = 0;
+      let fabX = 0, fabY = 0;
+
+      const saved = localStorage.getItem("fab-pos");
+      if (saved) {
+        const p = JSON.parse(saved);
+        fab.style.right = "auto";
+        fab.style.bottom = "auto";
+        fab.style.left = p.x + "px";
+        fab.style.top = p.y + "px";
+      }
+
+      function startDrag(e) {
+        dragging = true;
+        const rect = fab.getBoundingClientRect();
+        startX = e.clientX;
+        startY = e.clientY;
+        fabX = rect.left;
+        fabY = rect.top;
+        fab.setPointerCapture(e.pointerId);
+      }
+
+      function onPointerDown(e) {
+        pressTimer = setTimeout(() => startDrag(e), 200);
+      }
+
+      function onPointerMove(e) {
+        if (!dragging) return;
+        const dx = e.clientX - startX;
+        const dy = e.clientY - startY;
+        fab.style.right = "auto";
+        fab.style.bottom = "auto";
+        fab.style.left = fabX + dx + "px";
+        fab.style.top = fabY + dy + "px";
+      }
+
+      function endPointer(e) {
+        clearTimeout(pressTimer);
+        if (dragging) {
+          dragging = false;
+          fab.releasePointerCapture(e.pointerId);
+          const rect = fab.getBoundingClientRect();
+          localStorage.setItem("fab-pos", JSON.stringify({ x: rect.left, y: rect.top }));
+        }
+      }
+
+      fab.addEventListener("pointerdown", onPointerDown);
+      fab.addEventListener("pointermove", onPointerMove);
+      fab.addEventListener("pointerup", endPointer);
+      fab.addEventListener("pointercancel", endPointer);
+    })();
+
   </script>
 </body>
 </html>
