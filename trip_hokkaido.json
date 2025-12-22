@@ -55,7 +55,10 @@
           "time": "18:00",
           "icon": "🍛",
           "title": "Curry Soup",
-          "note": "第一餐暖身  落雪日首選"
+          "note": "第一餐暖身  落雪日首選",
+          "popup": true,
+          "maps": "https://maps.app.goo.gl/FzWRBiwgeNq5ywmU7",
+          "gallery": "currysoup"
         },
         {
           "time": "20:00",
