@@ -89,46 +89,60 @@
       ]
     },
     {
-      "label": "Day 2",
-      "date": "12月26日",
-      "title": "12月25日 札幌 美食＋購物",
-      "subtitle": "根室花まる 排隊壽司｜蟹本札幌 蟹食放題｜兩段Shopping",
-      "items": [
+  "label": "Day 2",
+  "date": "12月25日",
+  "title": "札幌 美食＋購物",
+  "subtitle": "根室花まる排隊壽司  蟹本札幌蟹食放題  兩段Shopping",
+  "isoDate": "2025-12-25",
+  "items": [
     {
       "time": "10:00",
       "icon": "🎟️",
       "title": "10點排位",
-      "detail": "為午市取號 建議提前到場",
+      "note": "為根室花まる取號  建議提前到",
+      "popup": true,
+      "detail": "建議 10:00 左右到場取號  之後可先行附近商場  等叫號再返去",
+      "maps": "https://www.google.com/maps/search/?api=1&query=%E6%A0%B9%E5%AE%A4%E8%8A%B1%E3%81%BE%E3%82%8B%20JR%E3%82%BF%E3%83%AF%E3%83%BC%20%E3%82%B9%E3%83%86%E3%83%A9%E3%83%97%E3%83%AC%E3%82%A4%E3%82%B9",
       "gallery": "nemuro"
     },
     {
       "time": "11:00",
       "icon": "🍣",
       "title": "回轉壽司 根室花まる",
-      "detail": "JRタワー ステラプレイス店",
-      "maps": "https://maps.app.goo.gl/grqsgj8HwDQVmvQPA",
+      "note": "JRタワー ステラプレイス店",
+      "popup": true,
+      "detail": "札幌站 JR Tower Stellar Place 內  熱門店  以叫號為準",
+      "maps": "https://www.google.com/maps/search/?api=1&query=%E6%A0%B9%E5%AE%A4%E8%8A%B1%E3%81%BE%E3%82%8B%20JR%E3%82%BF%E3%83%AF%E3%83%BC%20%E3%82%B9%E3%83%86%E3%83%A9%E3%83%97%E3%83%AC%E3%82%A4%E3%82%B9%E5%BA%97",
       "gallery": "nemuro"
     },
     {
       "time": "15:00",
       "icon": "🛍️",
       "title": "Shopping",
-      "detail": "札幌站一帶 Stellar Place 及周邊",
+      "note": "札幌站一帶  Stellar Place 及周邊",
+      "popup": true,
+      "detail": "下午慢慢行街  需要補貨可以集中喺札幌站周邊一次過搞掂",
+      "maps": "https://www.google.com/maps/search/?api=1&query=JR%20Tower%20Stellar%20Place%20Sapporo",
       "gallery": "sapporo_shopping"
     },
     {
       "time": "18:00",
       "icon": "🦀",
       "title": "蟹食放題 蟹本札幌",
-      "detail": "晚餐 建議準時",
-      "maps": "https://maps.app.goo.gl/PNgN6eNayhBCCXXD9",
+      "note": "晚餐",
+      "popup": true,
+      "detail": "蟹食放題  建議準時到  食完可再行街",
+      "maps": "https://www.google.com/maps/search/?api=1&query=%E8%9F%B9%E6%9C%AC%E6%9C%AD%E5%B9%8C",
       "gallery": "kanihon"
     },
     {
       "time": "21:00",
       "icon": "🛍️",
       "title": "Shopping",
-      "detail": "夜晚再行街 彈性時間",
+      "note": "夜晚再行街  彈性時間",
+      "popup": true,
+      "detail": "如果想輕鬆可以行便利店同藥妝  或者返酒店休息",
+      "maps": "https://www.google.com/maps/search/?api=1&query=Sapporo%20Station%20shopping",
       "gallery": "sapporo_shopping_night"
     }
   ]
