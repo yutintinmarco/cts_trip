@@ -256,32 +256,64 @@
   ]
 },
     {
-      "label": "Day 5",
-      "date": "12月28日",
-      "title": "酒店轉換",
-      "subtitle": "退房 Hotel Mystays  入住 JR Inn Sapporo",
-      "isoDate": "2025-12-28",
-      "items": [
-        {
-          "time": "11:00",
-          "icon": "🧳",
-          "title": "退房 Hotel Mystays Sapporo Station",
-          "note": "行李可寄存  減少拖行李時間"
-        },
-        {
-          "time": "15:00",
-          "icon": "🏨",
-          "title": "入住 JR Inn Sapporo",
-          "note": "近札幌站  方便翌日返程",
-          "popup": true,
-          "detailLines": [
-            "靠近札幌站  對接機場 JR 更方便",
-            "入住後先確認翌日出發時間"
-          ],
-          "detail": "靠近札幌站，對接機場 JR 更方便。入住後建議先確認翌日出發時間與交通備案。"
-        }
-      ]
+  "label": "Day 5",
+  "date": "12月28日",
+  "title": "換酒店＋市內行程",
+  "subtitle": "Check out & in  札幌市中央批發市場  午餐  北海道神宮  晚上Shopping",
+  "isoDate": "2025-12-28",
+  "items": [
+    {
+      "time": "09:00",
+      "icon": "🧳",
+      "title": "Check out & in",
+      "note": "Hotel Mystays → JR Inn Sapporo",
+      "popup": true,
+      "detail": "退房 Hotel Mystays Sapporo Station  轉住 JR Inn Sapporo  行李寄存後再出發",
+      "maps": "https://www.google.com/maps/search/?api=1&query=JR%20Inn%20Sapporo",
+      "gallery": ""
     },
+    {
+      "time": "10:00",
+      "icon": "🐟",
+      "title": "札幌市中央批發市場",
+      "note": "市場逛逛",
+      "popup": true,
+      "detail": "札幌市內人氣市場  逛下海產乾貨  睇下有無想買返香港",
+      "maps": "https://www.google.com/maps/search/?api=1&query=%E6%9C%AD%E5%B9%8C%E5%B8%82%E4%B8%AD%E5%A4%AE%E5%8D%B8%E5%A3%B2%E5%B8%82%E5%A0%B4",
+      "gallery": ""
+    },
+    {
+      "time": "12:00",
+      "icon": "🍽️",
+      "title": "Lunch @ 批發市場",
+      "note": "市場食海鮮",
+      "popup": true,
+      "detail": "市場內或附近食海鮮丼  壽司  或簡單暖胃餐",
+      "maps": "https://www.google.com/maps/search/?api=1&query=%E6%9C%AD%E5%B9%8C%E5%B8%82%E4%B8%AD%E5%A4%AE%E5%8D%B8%E5%A3%B2%E5%B8%82%E5%A0%B4%20%E9%A3%9F%E4%BA%8B",
+      "gallery": ""
+    },
+    {
+      "time": "14:00",
+      "icon": "⛩️",
+      "title": "北海道神宮",
+      "note": "參拜＋散步",
+      "popup": true,
+      "detail": "札幌代表神宮  冬天氣氛好靚  參拜散步  視天氣決定停留時間",
+      "maps": "https://www.google.com/maps/search/?api=1&query=Hokkaido%20Shrine",
+      "gallery": ""
+    },
+    {
+      "time": "18:00",
+      "icon": "🛍️",
+      "title": "Shopping",
+      "note": "晚間行街補貨",
+      "popup": true,
+      "detail": "札幌站／大通／薄野一帶自由行街  視體力再調整",
+      "maps": "https://www.google.com/maps/search/?api=1&query=Sapporo%20Station%20shopping",
+      "gallery": ""
+    }
+  ]
+},
     {
       "label": "Day 6",
       "date": "12月29日",
