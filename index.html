@@ -11,20 +11,6 @@
   <meta http-equiv="Expires" content="0" />
   <title>北海道行程</title>
   <style>
-
-    /* Top white mask to cover content during iOS overscroll (keep header hidden under white area) */
-    .top-mask {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: calc(env(safe-area-inset-top) + 1px);
-      background: rgba(245,245,247,0.92);
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
-      z-index: 9999;
-      pointer-events: none;
-    }
     :root {
       --font-scale: 1;
     }
@@ -40,7 +26,22 @@
       font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", system-ui, sans-serif;
       background: rgba(245,245,247,0.80);
       color: #111111;
+      height: 100vh;
+      overflow: hidden;
 }
+
+    html {
+      background: rgba(245,245,247,0.80);
+    }
+
+    .scroll-shell {
+      height: 100vh;
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+      padding-top: env(safe-area-inset-top);
+      overscroll-behavior: contain;
+    }
+
     .container {
       max-width: 480px;
       margin: 0 auto;
@@ -453,11 +454,10 @@
   <link rel="icon" type="image/png" href="assets/icon/trip_icon.png" />
 </head>
 <body>
-  <div class="top-mask" aria-hidden="true"></div>
-
   <div class="bg-fixed"></div>
   
-  <div class="container">
+  <div class="scroll-shell" id="scroll-shell">
+    <div class="container">
     <div id="pull-indicator" class="pull-indicator">下拉更新行程</div>
 
     <div class="header">
@@ -524,6 +524,7 @@
     <div class="footer-note" id="footer-note">
       行程  天氣  日出日落  照片及地圖由 AI 協助整合  點擊酒店及景點可查看詳細資訊
     </div>
+  </div>
   </div>
 
   <div class="modal-backdrop" id="detail-backdrop">
@@ -596,15 +597,22 @@
       });
     }
 
-    // Pull to refresh
+    // Pull to refresh (scroll container)
+    const scrollShell = document.getElementById("scroll-shell");
     const pullIndicator = document.getElementById("pull-indicator");
     let pullStartY = 0;
     let pullDistance = 0;
     let isPulling = false;
     const PULL_THRESHOLD = 70;
 
-    window.addEventListener("touchstart", (e) => {
-      if (window.scrollY === 0) {
+    function getScrollTop() {
+      return scrollShell ? scrollShell.scrollTop : (window.scrollY || 0);
+    }
+
+    const touchTarget = scrollShell || window;
+
+    touchTarget.addEventListener("touchstart", (e) => {
+      if (getScrollTop() === 0) {
         isPulling = true;
         pullStartY = e.touches[0].clientY;
         pullDistance = 0;
@@ -613,7 +621,7 @@
       }
     }, { passive: true });
 
-    window.addEventListener("touchmove", (e) => {
+    touchTarget.addEventListener("touchmove", (e) => {
       if (!isPulling) return;
       const currentY = e.touches[0].clientY;
       pullDistance = currentY - pullStartY;
@@ -623,7 +631,7 @@
       }
     }, { passive: true });
 
-    window.addEventListener("touchend", () => {
+    touchTarget.addEventListener("touchend", () => {
       if (!isPulling) return;
       if (pullDistance > PULL_THRESHOLD) {
         window.location.reload(true);
@@ -783,24 +791,18 @@
     let bodyScrollY = 0;
 
     function lockBodyScroll() {
-      bodyScrollY = window.scrollY || window.pageYOffset || 0;
-      document.body.style.position = "fixed";
-      document.body.style.top = `-${bodyScrollY}px`;
-      document.body.style.left = "0";
-      document.body.style.right = "0";
-      document.body.style.width = "100%";
+      if (!scrollShell) return;
+      bodyScrollY = scrollShell.scrollTop || 0;
+      scrollShell.style.overflowY = "hidden";
     }
 
     function unlockBodyScroll() {
-      document.body.style.position = "";
-      document.body.style.top = "";
-      document.body.style.left = "";
-      document.body.style.right = "";
-      document.body.style.width = "";
-      window.scrollTo(0, bodyScrollY || 0);
+      if (!scrollShell) return;
+      scrollShell.style.overflowY = "auto";
+      scrollShell.scrollTop = bodyScrollY || 0;
     }
 
-    const GALLERIES = {
+const GALLERIES = {
       "hotel_quanji": [
         "assets/galleries/quanji/quanji_1.webp",
         "assets/galleries/quanji/quanji_2.webp"
@@ -901,6 +903,7 @@
           currentDianpingUrl = dianping;
           currentBookingUrl = bookingPdf;
           detailBackdrop.classList.add("active");
+          lockBodyScroll();
 
           let combinedGallery = [];
           if (galleryKey && GALLERIES[galleryKey]) {
@@ -1105,7 +1108,7 @@ function getTokyoDateString() {
         if (activeTab) activeTab.classList.add("active");
         if (activeContent) activeContent.classList.add("active");
 
-        window.scrollTo({ top: 0, behavior: "smooth" });
+        if (scrollShell) { scrollShell.scrollTo({ top: 0, behavior: "smooth" }); } else { window.scrollTo({ top: 0, behavior: "smooth" }); }
       } else if (startIso && todayIso < startIso) {
         const daysToGo = diffInDays(todayIso, startIso);
         chip.textContent = "尚未出發";
@@ -1262,7 +1265,7 @@ function getTokyoDateString() {
           const idx = tab.dataset.dayIndex;
           const activeContent = document.querySelector('.day-content[data-day-index="' + idx + '"]');
           if (activeContent) activeContent.classList.add("active");
-          window.scrollTo({ top: 0, behavior: "smooth" });
+          if (scrollShell) { scrollShell.scrollTo({ top: 0, behavior: "smooth" }); } else { window.scrollTo({ top: 0, behavior: "smooth" }); }
         });
       });
 
