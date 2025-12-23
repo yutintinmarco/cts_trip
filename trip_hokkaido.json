@@ -316,11 +316,11 @@
     }
   ]
 },
-    {
+{
   "label": "Day 5",
   "date": "12月28日",
-  "title": "換酒店＋市內行程",
-  "subtitle": "Check out & in  札幌市中央批發市場  午餐  北海道神宮  晚上Shopping",
+  "title": "換酒店＋市場＋Outlet",
+  "subtitle": "Check out & in  二条市場  午餐  Outlet Shopping  かき小屋レンガー バル",
   "isoDate": "2025-12-28",
   "items": [
     {
@@ -336,50 +336,48 @@
     {
       "time": "10:00",
       "icon": "🐟",
-      "title": "札幌市中央批發市場",
+      "title": "二条市場",
       "note": "市場逛逛",
       "popup": true,
-      "detail": "札幌市內人氣市場  逛下海產乾貨  睇下有無想買返香港",
-      "maps": "https://www.google.com/maps/search/?api=1&query=%E6%9C%AD%E5%B9%8C%E5%B8%82%E4%B8%AD%E5%A4%AE%E5%8D%B8%E5%A3%B2%E5%B8%82%E5%A0%B4",
-      "gallery": ""
+      "detail": "札幌市中心人氣市場  海鮮丼  干貝  蟹  買手信都方便",
+      "maps": "https://www.google.com/maps/search/?api=1&query=%E4%BA%8C%E6%9D%A1%E5%B8%82%E5%A0%B4%20%E6%9C%AD%E5%B9%8C",
+      "gallery": "nijo"
     },
     {
       "time": "12:00",
       "icon": "🍽️",
-      "title": "Lunch @ 批發市場",
+      "title": "Lunch @ 二条市場",
       "note": "市場食海鮮",
       "popup": true,
-      "detail": "市場內或附近食海鮮丼  壽司  或簡單暖胃餐",
-      "maps": "https://www.google.com/maps/search/?api=1&query=%E6%9C%AD%E5%B9%8C%E5%B8%82%E4%B8%AD%E5%A4%AE%E5%8D%B8%E5%A3%B2%E5%B8%82%E5%A0%B4%20%E9%A3%9F%E4%BA%8B",
-      "gallery": ""
-    },
-    {
-      "time": "14:00",
-      "icon": "⛩️",
-      "title": "北海道神宮",
-      "note": "參拜＋散步",
-      "popup": true,
-      "detail": "札幌代表神宮  冬天氣氛好靚  參拜散步  視天氣決定停留時間",
-      "maps": "https://www.google.com/maps/search/?api=1&query=Hokkaido%20Shrine",
-      "gallery": ""
+      "detail": "建議直接喺市場內解決午餐  海鮮丼或壽司  食完再出發去 Outlet",
+      "maps": "https://www.google.com/maps/search/?api=1&query=%E4%BA%8C%E6%9D%A1%E5%B8%82%E5%A0%B4%20%E6%9C%AD%E5%B9%8C%20%E6%B5%B7%E9%AE%AE%E4%B8%BC",
+      "gallery": "nijo_food"
     },
     {
       "time": "15:00",
       "icon": "🛍️",
-      "title": "札幌北廣島三井Outlet",
-      "note": "堪稱北海道代表性暢貨中心",
+      "title": "Outlet Shopping",
+      "note": "三井OUTLET PARK 札幌北廣島",
       "popup": true,
-      "dianping": "https://mitsui-shopping-park.com/mop/sapporo/tw/",
-      "maps": "https://maps.app.goo.gl/QAmaWQfcfnUZbMdB7",
+      "website": "https://mitsui-shopping-park.com/mop/sapporo/tw/",
+      "maps": "https://www.google.com/maps/search/?api=1&query=Mitsui%20Outlet%20Park%20Sapporo%20Kitahiroshima",
       "gallery": "outlet",
       "detailLines": [
-            "堪稱北海道代表性暢貨中心的「三井OUTLET PARK 札幌北廣島」",
-            "不僅店舖面積廣達3萬平方公尺",
-            "進駐店家更是約有180間",
-            "無論是美妝、雜貨、精品包包",
-            "還是時尚服飾及運動用品等多樣商品",
-            "在這裡通通買得到。"
-          ]
+        "堪稱北海道代表性暢貨中心的「三井OUTLET PARK 札幌北廣島」",
+        "店舖面積廣  進駐店家約 180 間",
+        "美妝  雜貨  精品  時尚服飾  運動用品一應俱全",
+        "建議預留充足時間  目標式購物會更有效率"
+      ]
+    },
+    {
+      "time": "19:30",
+      "icon": "🦪",
+      "title": "かき小屋レンガー バル",
+      "note": "牡蠣＋海鮮小酌",
+      "popup": true,
+      "detail": "晚餐食牡蠣同海鮮  返札幌後輕鬆收尾  視乎 Outlet 逛到幾點再調整",
+      "maps": "https://www.google.com/maps/search/?api=1&query=%E3%81%8B%E3%81%8D%E5%B0%8F%E5%B1%8B%E3%83%AC%E3%83%B3%E3%82%AC%E3%83%BC%20%E3%83%90%E3%83%AB%20%E6%9C%AD%E5%B9%8C",
+      "gallery": ""
     }
   ]
 },
