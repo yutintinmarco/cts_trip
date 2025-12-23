@@ -171,8 +171,9 @@
       "note": "11:30 confirmed",
       "popup": true,
       "detail": "小樽壽司午餐  已確認  按預約時間到達",
-      "maps": "https://www.google.com/maps/search/?api=1&query=%E5%B0%8F%E6%A8%BD%20%E5%AF%BF%E5%8F%B8",
-      "gallery": ""
+      "maps": "https://maps.app.goo.gl/QZK6fEBrGq5sjX2G9",
+      "gallery": "takarasushi",
+      "bookingPdf": "assets/booking/takarasushi.pdf"
     },
     {
       "time": "13:00",
