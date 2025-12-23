@@ -365,14 +365,21 @@
       "gallery": ""
     },
     {
-      "time": "18:00",
+      "time": "15:00",
       "icon": "🛍️",
-      "title": "Shopping",
-      "note": "晚間行街補貨",
+      "title": "札幌北廣島三井Outlet",
+      "note": "堪稱北海道代表性暢貨中心",
       "popup": true,
-      "detail": "札幌站／大通／薄野一帶自由行街  視體力再調整",
-      "maps": "https://www.google.com/maps/search/?api=1&query=Sapporo%20Station%20shopping",
-      "gallery": ""
+      "maps": "https://maps.app.goo.gl/QAmaWQfcfnUZbMdB7",
+      "gallery": "outlet",
+      "detailLines": [
+            "堪稱北海道代表性暢貨中心的「三井OUTLET PARK 札幌北廣島」",
+            "不僅店舖面積廣達3萬平方公尺",
+            "進駐店家更是約有180間",
+            "無論是美妝、雜貨、精品包包",
+            "還是時尚服飾及運動用品等多樣商品",
+            "在這裡通通買得到。"
+          ]
     }
   ]
 },
